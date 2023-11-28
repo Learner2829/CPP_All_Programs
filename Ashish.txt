@@ -1,0 +1,5584 @@
+Name:Ashish g patni
+Course:Msc-cs-III
+Sub:OOCP(P)
+Batch:II
+Roll:92
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+Assignment-1
+
+(1)
+	Define a class Employees.
+Also define classes of MaleEmp and FemaleEmp inheriting from that. 
+Define classes Officers, Clercks and peons again inheriting from Employee class.
+Define an array which contains 10 different types of employees. Define a function ReadDetails() in all above classes. 
+All array elements should be able to be accessed in the same routine irrespective of their type.
+
+
+#include<iostream>
+using namespace std;
+class employy{
+	static int id;
+	string name;
+	public:
+		set()
+		{
+			cout<<"Enter a name"<<endl;
+			cin>>name;
+			id++;
+		}
+		get()
+		{
+			cout<<"Your id is :"<<id<<endl;
+			cout<<"Your name is :"<<name<<endl;
+		}
+		
+};
+int employy::id=0;
+main()
+{ 
+employy e1,e2;
+e1.set();
+e1.get();
+e2.set();
+e2.get();
+}
+—----------------------------------------------------------------------------------
+(2) An educational institution wishes to maintain a database of its employees. The database is divided into a number of classed whose hierarchical relationships are shown in fig-1. The figure also shows the minimum information required for each class. Specify all the classes and define function to create the database and retrieve individual information as and when required. Write parameterized constructor for each class in the hierarchy.
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class BankAccount {
+private:
+    string depositorName;
+    int accountNumber;
+    char accountType;
+    double balance;
+
+
+public:
+    BankAccount() {
+        depositorName = "";
+        accountNumber = 0;
+        accountType = ' ';
+        balance = 0.0;
+    }
+
+
+    void initializeAccount(string name, int accNum, char type, double initialBalance) {
+        depositorName = name;
+        accountNumber = accNum;
+        accountType = type;
+        balance = initialBalance;
+    }
+
+
+    void deposit(double amount) {
+        balance += amount;
+    }
+
+
+    void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            cout << "Insufficient balance for withdrawal." << endl;
+        }
+    }
+
+
+    void display() {
+        cout << "Depositor Name: " << depositorName << endl;
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Account Type: " << accountType << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+
+int main() {
+    BankAccount accounts[10]; 
+    for (int i = 0; i < 10; i++) {
+        string name;
+        int accNum;
+        char type;
+        double initialBalance;
+
+
+        cout << "Enter details for customer " << i + 1 << ":" << endl;
+        cout << "Name: ";
+        cin >> name;
+        cout << "Account Number: ";
+        cin >> accNum;
+        cout << "Account Type (S for Savings, C for Checking): ";
+        cin >> type;
+        cout << "Initial Balance: ";
+        cin >> initialBalance;
+
+
+        accounts[i].initializeAccount(name, accNum, type, initialBalance);
+    }
+    for (int i = 0; i < 10; i++) {
+        cout << "Customer " << i + 1 << " Account Details:" << endl;
+        accounts[i].display();
+
+
+        double depositAmount, withdrawAmount;
+        cout << "Enter deposit amount for customer " << i + 1 << ": ";
+        cin >> depositAmount;
+        accounts[i].deposit(depositAmount);
+
+
+        cout << "Enter withdrawal amount for customer " << i + 1 << ": ";
+        cin >> withdrawAmount;
+        accounts[i].withdraw(withdrawAmount);
+
+
+        cout << "Updated Account Details:" << endl;
+        accounts[i].display();
+    }
+
+
+    return 0;
+}
+—----------------------------------------------------------------------------------
+(3)         The database created in Ex-2 does not include educational information of the staff.  It has been decided to add this information to teachers and officers (and not for typists) which will help the management in decision making with regards to training, promotion , etc. Add another data class called education that holds two pieces of educational information , namely highest qualification in general education and highest professional  qualification. This class should be inherited by the class teacher and officer. Modify the program of Ex 2 to incorporated these additions.
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+//author, title, price, publisher and stock position. 
+class book{
+	public:
+	string author;
+	string title;
+	float price;
+	string publisher;
+	int stock_position;
+};
+main()
+{
+	book b[5];
+	b[0].author = "balaguru";
+    b[0].title = "Programming with C"; 
+    b[0].price = 300;
+    b[0].publisher = "Anci";
+    b[0].stock_position = 15;
+	
+	b[1].author="balaguru";
+	b[1].title="OOCP";
+	b[1].price=600;
+	b[1].publisher="Anci";
+	b[1].stock_position=50;	
+	
+	b[2].author="Ramkrishna herkher";
+	b[2].title="DBMS";
+	b[2].price=1200;
+	b[2].publisher="gpl";
+	b[2].stock_position=11;
+	
+	b[3].author="EF CODE";
+	b[3].title="DATA BASE";
+	b[3].price=800;
+	b[3].publisher="gnl";
+	b[3].stock_position=12;
+	
+	
+	string temp_book;
+	int copy;
+	cout<<"Enter a book name which you want"<<endl;
+	cin>>temp_book;
+	cout<<"Enter a number of copy which you want"<<endl;
+	cin>>copy;
+	
+	for(int i=0;i<5;i++)
+	{
+		if(b[i].title<=temp_book)
+		{
+			if(b[i].stock_position==copy)
+			{
+			cout<<	"Author:"<<b[i].author<<endl;
+			cout<<"Title:"<<b[i].title<<endl;
+			cout<<"Price:"<<b[i].price<<endl;
+			cout<<"Publicer:"<<b[i].publisher<<endl;
+			cout<<"Stock:"<<b[i].stock_position<<endl;
+			break;
+			}
+			else
+			{
+				cout<<"Sorry! we have not stock"<<endl;
+				break;
+			}
+	
+		}
+		else if(i==4){
+			cout<<"Book was not found"<<endl;
+		}
+	}	
+	
+	
+	
+}—---------------------------------------------------------------------------------
+(3)               Consider a class network of fig . The class master derives information from both account and admin classes which in turn derived derive information from the class person. Define all the four classes and write a program to create , update and display the information contained in master objects. 
+#include <iostream>
+
+
+using namespace std;
+
+
+class Vector {
+private:
+    int elements[10]; 
+    int size;
+    int capacity;
+
+
+public:
+    Vector() : size(0), capacity(10) {}
+
+
+    void modify_element(int index, int newValue) {
+        if (index >= 0 && index < size) {
+            elements[index] = newValue;
+        } else {
+            cout << "Invalid index. Element not modified." << endl;
+        }
+    }
+
+
+    void multiply_Scalar(int scalar) {
+        for (int i = 0; i < size; i++) {
+            elements[i] *= scalar;
+        }
+    }
+
+
+    void add(int value) {
+        if (size < capacity) {
+            elements[size++] = value;
+        } else {
+            cout << "Vector is full. Element not added." << endl;
+        }
+    }
+
+
+    // Function to display the vector
+    void display_Vector() {
+        cout << "(";
+        for (int i = 0; i < size; i++) {
+            cout << elements[i];
+            if (i < (size - 1)) {
+                cout << ",";
+            }
+        }
+        cout << ")" << endl;
+    }
+};
+
+
+int main() {
+    Vector myVector;
+    int num;
+		cout<<"Enter Number of vector elements"<<endl;
+		cin>>num;
+    // Add elements to the vector
+    for(int i=0;i<=num;i++)
+    {
+    	int ele;
+    cout<<"Enter your vector elements";
+    cin>>ele;
+	myVector.add(ele);
+	}
+    
+
+
+    // Display the vector
+    cout << "Initial Vector: ";
+    myVector.display_Vector();
+
+
+    // Modify an element
+    myVector.modify_element(2, 35);
+
+
+    // Display the modified vector
+    cout << "Modified Vector: ";
+    myVector.display_Vector();
+
+
+    // Multiply the vector by a scalar value
+    myVector.multiply_Scalar(2);
+
+
+    // Display the multiplied vector
+    cout << "Multiplied Vector: ";
+    myVector.display_Vector();
+
+
+    return 0;
+}
+
+
+—----------------------------------------------------------------------------------
+ 
+(5) 	In Exercise 4, the classes teacher , Officer and typist are derived from the class staff. As we know, we can use container classes in place of inheritance in some situations. Redesign the program of Ex-8.21 such that the classes teacher, officer and typist contain the objects of staff. Write parameterized constructor for each class in the hierarchy.
+#include <iostream>
+#include <string>
+
+
+using namespace std; // Add this line to avoid using std:: prefix
+
+
+class Item {
+public:
+    string itemName;
+    float itemPrice;
+
+
+    Item(const string& name, float price) : itemName(name), itemPrice(price) {}
+};
+
+
+class Supplier {
+private:
+    string supplierName;
+    string supplierAddress;
+    string supplierContact;
+    Item* itemList;
+    int itemCount;
+
+
+public:
+    Supplier(const string& name, const string& address, const string& contact, int initialCapacity)
+        : supplierName(name), supplierAddress(address), supplierContact(contact), itemList(new Item[initialCapacity]), itemCount(0) {}
+
+
+    ~Supplier() {
+        delete[] itemList;
+    }
+
+
+    void addItem(const string& name, float price) {
+        if (itemCount < initialCapacity) {
+            itemList[itemCount++] = Item(name, price);
+        } else {
+            cout << "Item list is full. Cannot add more items." << endl;
+        }
+    }
+};
+
+
+int main() {
+    Supplier supplier("ABC Suppliers", "123 Main St", "contact@abc.com", 10);
+
+
+    supplier.addItem("Widget", 10.99);
+    supplier.addItem("Gadget", 19.99);
+
+
+    // Access and display supplier details and items
+    // ...
+
+
+    return 0;
+}
+—----------------------------------------------------------------------------------
+#include<iostream>
+using namespace std;
+main()
+{
+//(7) Define a class Car. Add data members as Make, Color, Size, and Cost. 
+//Write member functions for reading values and printing values of car.
+//Define one more class as CarCollection.
+//CarCollection contains array of cars. 
+//CarCollection class should contain member functions as Add,delete, modify and replace. 
+//CarCollection is to be defined as friend of Car class. 
+//Write C++ programs to test your classes
+
+
+class Car{
+	protected:
+	int id;
+	string  color;
+	float size;
+	float cost;
+	public:
+		make()
+		{
+			cout<<"Enter ID :"<<endl;
+			cin>>id;
+			cout<<"Enter Color :"<<endl;
+			cin>>color;
+			cout<<"Enter size of Car :"<<endl;
+			cin>>size;
+			cout<<"Enter cost for Car :"<<endl;
+			cin>>cost;
+		}
+		data()
+		{	
+			cout<<"Car id is :"<<id<<endl;
+			cout<<"Car Color is :"<< color<<endl;
+			cout<<"Car size is :"<<size<<endl;
+			cout<<"Car cost is :"<<cost<<endl;
+		}
+};
+class carcollection{
+	int size;
+	int id;
+	carcollection(int in_size){
+			size=in_size;
+			car c1[in_size];	
+	}
+	add_data(int count)
+	{
+		c1[count].make();
+	}
+	del()
+	{
+		cout<<"Enter id number which want to delete"<<endl;
+		cin>>id;
+		for(int i=0;i<=size;i++)
+		{
+			if(c1[i]::id>=id)
+			{
+				c1[i]::id=id+1;
+			}
+		}
+	}
+	
+};
+
+
+main()
+
+
+
+
+
+
+
+
+
+
+—----------------------------------------------------------------------------------
+
+
+#include<iostream>
+using namespace std;
+//(8) Use Employee and EmpCollection classes. 
+//Employee class contains details about employee 
+//and EmpCollection contains collection of employees
+//in form of an array. 
+//Provide GetSubordinates friend function which returns an object of EmpCollection 
+//class which contains details of
+//subordinates of a manager. 
+//The employee object describing manager is to be passed as a parameter.
+class All_employee;
+class Employee{
+		int id;
+		string name;
+		string subordinates;
+		string manager;
+		
+		public:
+		set_data(){
+			cout<<"ID:"<<endl;
+			cin>>id;
+			cout<<"Name:"<<endl;
+			cin>>name;
+			cout<<"Subordinates:"<<endl;
+			cin>>subordinates;
+			cout<<"Manager:"<<endl;
+			cin>>manager;
+		}	
+	
+		get_data(){
+			cout<<"ID : "<<id<<endl;
+			cout<<"Name : "<<name<<endl;
+			cout<<"Subordinates : "<<subordinates<<endl;
+			cout<<"Manager : "<<manager<<endl;
+			
+		}
+		friend All_employee getsubordinates(Employee e1,All_employee s1);
+	
+	};
+	
+		
+	
+	
+	class All_employee{
+		string subordinates;
+		string manager;
+		public:
+		set(string input_manager,string input_subordinates){
+			subordinates=input_manager;
+			manager=input_manager;
+		}
+		get()
+		{
+			cout<<"Subordinates:"<<subordinates<<endl;
+			cout<<"Manager:"<<manager<<endl;
+			cout<<"----------------------------------"<<endl;
+			}	
+	};
+	 All_employee getsubordinates(Employee e1,All_employee s1)
+	{
+			string temp_manager;
+			string temp_subordinates;
+			temp_manager=e1.manager;
+			temp_subordinates=e1.subordinates;
+			
+			s1.set(temp_manager,temp_subordinates);
+			return s1;
+	}
+
+
+main()
+{
+	Employee l1;
+	All_employee z1;
+	
+	l1.set_data();
+	z1=getsubordinates(l1,z1);
+	z1.get();
+	
+}
+—----------------------------------------------------------------------------------
+#include<iostream>
+using namespace std;
+//For a supermarket, define a bill class.
+//All the bill objects will contain bill number, 
+//name of clerk preparing the bill, 
+//each item with quantity and price, 
+//total amount to be paid.
+//Total items in the bill are varying. 
+//Define dynamic memory allocation constructor 
+//for bill class such that any number of items from 1 to 50 can be accommodated in a single bill. 
+//There is an array describing each item with price. 
+//Price is to be picked up from that array.
+//Now overload = operator and provide reasons for need of such operator.
+//Use Exception Handling techniques to handle errors.
+
+
+class bill{
+	int bill_number;
+	string name;
+	string* item;
+	float* price;
+	float total_amount;
+	int item_size;
+	public:
+		bill(int item_num)
+		{
+			if(item_num>1&&item_num<50)
+			{
+				cout<<"Valid item number"<<endl;
+				item = new string[item_num];
+				price = new float[item_num];
+				item_size=item_num;	
+			}
+			else{
+				cout<<"invalid bill number"<<endl;
+			}
+		}
+		set_data()
+		{	
+			cout<<"Enter bill number : "<<endl;
+			cin>>bill_number;
+			cout<<"Enter customer name : "<<endl;
+			cin>>name;
+				for(int i=1;i<item_size;i++)
+			{
+				cout<<"Enter item name "<<i<<":"<<endl;
+				cin>>item[i];
+				cout<<"Enter item price "<<i<<":"<<endl;
+				cin>>price[i];
+				total_amount=total_amount+price[i];
+			}
+		}
+		show_data()
+		{
+			cout<<"Bill ID :"<<bill_number<<endl;
+			cout<<"Name:"<<name<<endl;
+			cout<<"Total item is :"<<item_size-1<<endl;
+				for(int i=1;i<item_size;i++)
+			{
+				cout<<"item name "<<i<<":"<<item[i]<<endl;
+				cout<<"item price "<<i<<":"<<price[i]<<endl;
+			}
+			cout<<"-------------------------------------------"<<endl;
+			cout<<"Total amout of this bill is :"<<total_amount<<endl;
+			
+		}
+		bill operator =(bill a1)
+		{
+		this->bill_number=a1.bill_number;
+		this->name=a1.name;
+		this->total_amount=a1.total_amount;
+		this->item_size=a1.item_size;	
+		for(int i=1;i<a1.item_size;i++)
+		{
+			this->item[i]=a1.item[i];
+			this->price[i]=a1.price[i];
+		}
+			return *this;
+		}
+		
+};
+main()
+{
+	bill b1(2),b3(2);
+	b1.set_data();
+	b1.show_data();
+	b3=b1;
+	b3.show_data();
+}
+//output
+//Valid item number
+//Valid item number
+//Enter bill number :
+//1
+//Enter customer name :
+//as
+//Enter item name 1:
+//ms
+//Enter item price 1:
+//100
+//Bill ID :1
+//Name:as
+//Total item is :1
+//item name 1:ms
+//item price 1:100
+//-------------------------------------------
+//Total amout of this bill is :100
+//Bill ID :1
+//Name:as
+//Total item is :1
+//item name 1:ms
+//item price 1:100
+//-------------------------------------------
+//Total amout of this bill is :100
+//
+//--------------------------------
+
+
+—----------------------------------------------------------------------------------
+
+
+
+
+—----------------------------------------------------------------------------------
+
+
+
+
+
+
+—----------------------------------------------------------------------------------
+
+
+
+
+Assignment 2
+(1) Overload all the four arithmetic operators to operate on a vector class and also the overload the * operator to multiply scalar values to the vector class. Overload the >> operator to input a vector and the << operator to display the vector in the form (10,20,.....). Also overload the [] operator to access the individual member of the vector. Use Dynamic memory allocation to achieve the solution. Write appropriate constructor and destructure for the class.
+
+
+
+
+#include <iostream>
+
+
+
+
+using namespace std;
+
+
+
+
+class Distance {
+private:
+    int feet;
+    int inches;
+
+
+
+
+public:
+    // Constructor
+    Distance(int feet, int inches) : feet(feet), inches(inches) {}
+
+
+
+
+    // Convert Distance class to total inches (int)
+    operator int() const {
+        return feet * 12 + inches;
+    }
+
+
+
+
+    // Convert int to Distance class
+    static Distance intToDistance(int totalInches) {
+        int feet = totalInches / 12;
+        int remainingInches = totalInches % 12;
+        return Distance(feet, remainingInches);
+    }
+
+
+
+
+    // Display the distance
+    void display() const {
+        cout << "Feet: " << feet << ", Inches: " << inches << endl;
+    }
+};
+
+
+
+
+class Length {
+private:
+    int meters;
+    int centimeters;
+
+
+
+
+public:
+    // Constructor
+    Length(int meters, int centimeters) : meters(meters), centimeters(centimeters) {}
+
+
+
+
+    // Convert Distance class to Length class
+    static Length distanceToLength(const Distance& distance) {
+        // 1 foot = 0.3048 meters
+        // 1 inch = 0.0254 meters
+        double totalMeters = distance.operator int() * 0.0254;
+        int meters = static_cast<int>(totalMeters);
+        int centimeters = static_cast<int>((totalMeters - meters) * 100);
+        return Length(meters, centimeters);
+    }
+
+
+
+
+    // Display the length
+    void display() const {
+        cout << "Meters: " << meters << ", Centimeters: " << centimeters << endl;
+    }
+};
+
+
+
+
+int main() {
+    // Test the Distance class
+    Distance d1(3, 6);
+//    Distance d2 = 48;  // Using conversion constructor
+
+
+
+
+    cout << "Distance 1:" << endl;
+    d1.display();
+
+
+
+
+//    cout << "\nDistance 2:" << endl;
+//    d2.display();
+
+
+
+
+    // Test conversion from Distance to int
+    int totalInches = static_cast<int>(d1);
+    cout << "\nTotal inches of Distance 1: " << totalInches << endl;
+
+
+
+
+    // Test conversion from int to Distance
+    Distance d3 = Distance::intToDistance(72);
+    cout << "\nDistance 3 (converted from 72 inches):" << endl;
+    d3.display();
+
+
+
+
+    // Test conversion from Distance to Length
+    Length length = Length::distanceToLength(d1);
+    cout << "\nLength (converted from Distance 1):" << endl;
+    length.display();
+
+
+
+
+    return 0;
+}
+//OTPUT
+//Distance 1:
+//Feet: 3, Inches: 6
+//
+//Total inches of Distance 1: 42
+//
+//
+//Length (converted from Dist
+//Distance 3 (converted from 72 inches):
+//Feet: 6, Inches: 0ance 1):
+//Meters: 1, Centimeters: 6
+
+
+
+
+ (2) Write a menu driven program that can perform the following functions on strings. (Use overloaded operators where possible). (Do not use predefined string class ) 1. Compare two strings for equality (== operator) 2. Check whether first string is smaller than the second (<= operator) 3. Copy the string to another 4. Extract a character from the string (Overload []) 5. Reverse the string 6. Concatenate two strings (+ operator)
+#include<iostream>
+using namespace std;
+class mystring{
+	string str;
+	public:
+		set()
+		{
+			cout<<"Enter string :"<<endl;
+			cin>>str;
+		}
+		show()
+		{
+			cout<<"Your string is :"<<str<<endl;
+		}
+		bool operator ==(mystring &x1)
+		{
+			int size1=sizeof(this->str)/sizeof(this->str[0]);
+			int size2=sizeof(x1.str)/sizeof(x1.str[0]);
+			if(size1==size2)
+			{
+				for(int i=0;i<size2;i++)
+				{
+					if(this->str[i]!=x1.str[i])
+					{
+					return 0;
+					}
+				}	
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		} 
+		void operator <=(mystring &x1)
+		{
+			int size1,size2,i;
+			while(x1.str[i]!= '\0')
+			{
+				size2=size2+1;
+				i=i+1;
+			}
+			i=0;
+			while(this->str[i]!= '\0')
+			{
+				size1=size1+1;
+				i=i+1;
+			}
+			if(size1<size2)
+			{
+				cout<<"First string is smaller than second string"<<endl;
+				
+			}
+			else
+			{
+				cout<<"second string is small"<<endl;
+			}
+		}	
+	friend copy(mystring &s1,mystring &s2);
+	char operator [](int index)
+	{
+		if(index<str.size() && index>=0)
+		{
+			return str[index];
+		}
+		else
+		{
+			cout<<"Invalid string size"<<endl;
+			return '\0';
+		}		
+	}
+	string reverse(){
+		  int s = str.size();
+    for (int i = 0; i < s / 2; i++) {
+        char temp = str[i];
+        str[i] = str[s - i - 1];
+        str[s - i - 1] = temp;
+    }
+    return str;
+	}		
+	string operator +(mystring s1)
+	{
+		string temp;
+		int i;
+		for( i=0;i<str.size();i++)
+		{
+		temp=temp+str[i];	
+		}
+		temp=temp+" ";
+		int size2=s1.str.size();
+		for( i=0;i<size2;i++)
+		{
+		temp=temp+s1.str[i];	
+		}	
+		return temp;
+	}
+};
+		copy(mystring &s1,mystring &s2){
+				int size=sizeof(s2.str)/sizeof(s2.str[0]);
+				for(int i=0;i<size;i++)
+				{
+					s1.str[i]=s2.str[i];
+				}			
+			}
+
+
+
+
+			
+int main()
+{
+	mystring s1,s2;
+	bool b1;
+	s1.set();
+	s1.show();
+	s2.set();
+	s2.show();
+	
+	//Same or not check
+	if(s1==s2){
+		cout<<"String are same"<<endl;
+	}
+	else
+	{
+		cout<<"String are not same"<<endl;
+	}
+
+
+
+
+// check less then first string
+	s1<=s2;
+
+
+
+
+//copy one string to another string
+	copy(s1,s2);
+	s1.show();
+	
+//index number
+cout<<s2[1];
+
+
+
+
+//reverse the string
+cout<<s1.reverse();
+
+
+
+
+//Concatenate two string
+cout<<s1+s2;
+	return 0;
+}
+//Enter string :
+//yusuf
+//Your string is :yusuf
+//Enter string :
+//akash
+//Your string is :akash
+//String are not same
+//second string is small
+//Your string is :akash
+//k hsaka hsaka akash
+(3) Create two classes Salary and Deductions to store the value of total salary and total deductions. Salary has date members as MED for medical allowance, HRA for house rent, BAS for basic salary , DA for dearness allowance. Deductions had data member IT for income tax, and PF for provident fund. Write appropriate constructors to set values into the data members, overload >> operator to display the salary as well as deductions and the - operator to subtract object of deductions from salary and display the net salary. Use friend function to carry out the subtraction.
+#include <iostream>
+using namespace std;
+
+
+
+
+class Deductions; 
+
+
+
+
+class Salary {
+private:
+    float MED;
+    float HRA;
+    float BAS;
+    float DA;
+    float Total_salary;
+
+
+
+
+public:
+ 
+    Salary(float med, float hra, float bas, float da) : MED(med), HRA(hra), BAS(bas), DA(da) {
+        Total_salary = MED + HRA + BAS + DA;
+    }
+
+
+
+
+   
+    friend ostream& operator<<(ostream& out, const Salary& salary);
+
+
+
+
+  
+    friend float operator-(const Salary& salary, const Deductions& deductions);
+};
+
+
+
+
+class Deductions {
+private:
+    float IT;
+    float PF;
+    float Total_deductions;
+
+
+
+
+public:
+
+
+
+
+    Deductions(float it, float pf) : IT(it), PF(pf) {
+        Total_deductions = IT + PF;
+    }
+
+
+
+
+   
+    friend ostream& operator<<(ostream& out, const Deductions& deductions);
+
+
+
+
+ 
+    friend float operator-(const Salary& salary, const Deductions& deductions);
+};
+
+
+
+
+
+
+
+
+ostream& operator<<(ostream& out, const Salary& salary) {
+    out << "Medical Allowance: " << salary.MED << endl;
+    out << "House Rent Allowance: " << salary.HRA << endl;
+    out << "Basic Salary: " << salary.BAS << endl;
+    out << "Dearness Allowance: " << salary.DA << endl;
+    out << "Total Salary: " << salary.Total_salary << endl;
+    return out;
+}
+
+
+
+
+
+
+
+
+ostream& operator<<(ostream& out, const Deductions& deductions) {
+    out << "Income Tax: " << deductions.IT << endl;
+    out << "Provident Fund: " << deductions.PF << endl;
+    out << "Total Deductions: " << deductions.Total_deductions << endl;
+    return out;
+}
+
+
+
+
+
+
+
+
+float operator-(const Salary& salary, const Deductions& deductions) {
+    return salary.Total_salary - deductions.Total_deductions;
+}
+
+
+
+
+int main() {
+   
+    Salary salary(1000, 2000, 3000, 4000);
+    Deductions deductions(500, 600);
+
+
+
+
+  
+    cout << "Initial Salary:" << endl;
+    cout << salary << endl;
+
+
+
+
+    cout << "\nInitial Deductions:" << endl;
+    cout << deductions << endl;
+
+
+
+
+
+
+
+
+    float netSalary = salary - deductions;
+    cout << "\nNet Salary: " << netSalary << endl;
+
+
+
+
+    return 0;
+}
+
+
+
+
+(4) Define a class coord, which has x and y coordinates as its data members . Overload the -- operator for the coord class. Create both its prefix and postfix forms. Overload the + operator for the coord class so that it is both a binary operator and unary operator. When used as unary operator, have the + make any negative coordinate value positive
+#include <iostream>
+using namespace std;
+
+
+
+
+class coord {
+private:
+    int x;
+    int y;
+
+
+
+
+public:
+    // Constructor
+    coord(int t_x, int t_y) : x(t_x), y(t_y) {}
+
+
+
+
+    // Prefix decrement operator (--coord)
+    coord operator--() {
+        --x;
+        --y;
+        return *this;
+    }
+
+
+
+
+    // Postfix decrement operator (coord--)
+    coord operator--(int) {
+        coord temp(*this);
+        --x;
+        --y;
+        return temp;
+    }
+
+
+
+
+    // Unary plus operator (+coord)
+    coord operator+() {
+        // Make any negative coordinate value positive
+        if (x < 0) x = -x;
+        if (y < 0) y = -y;
+        return *this;
+    }
+
+
+
+
+    // Binary plus operator (coord + coord)
+    coord operator+(const coord& other) {
+        return coord(x + other.x, y + other.y);
+    }
+
+
+
+
+    // Display coordinates
+    void display() {
+        cout << "X: " << x << ", Y: " << y << endl;
+    }
+};
+
+
+
+
+int main() {
+    coord point1(5, -3);
+    coord point2(-2, 7);
+
+
+
+
+    cout << "Original Coordinates:" << endl;
+    point1.display();
+    point2.display();
+
+
+
+
+    // Unary plus operator (+coord)
+    cout << "\nApplying Unary Plus Operator (+coord):" << endl;
+    (+point1).display();
+    (+point2).display();
+
+
+
+
+    // Binary plus operator (coord + coord)
+    cout << "\nApplying Binary Plus Operator (coord + coord):" << endl;
+    (point1 + point2).display();
+
+
+
+
+    // Prefix decrement operator (--coord)
+    cout << "\nApplying Prefix Decrement Operator (--coord):" << endl;
+    (--point1).display();
+
+
+
+
+    // Postfix decrement operator (coord--)
+    cout << "\nApplying Postfix Decrement Operator (coord--):" << endl;
+    (point2--).display();
+
+
+
+
+    return 0;
+}
+
+
+//(5) Create a date class with the following capabilities: 
+//(a)Output the date in multiple formats such as 
+//DDMMYYYY 
+//MM/DD/YY 
+//May14,2001 
+//(b)Use overloaded constructors to create Date objects in itialized with date format in section(a)
+//(c) Overload operators for testing equality of two dates and for comparing dates to determine if one date is prior to,or after,anotherdate.
+//(d) Create a member function nextday to increment the day by day. 
+//The date object function should always remain in consistant state.Be sure to test following cases:(i)Incrementing
+//to next month(ii) Incrementing into the next year.
+#include<iostream>
+using namespace std;
+
+
+
+
+
+
+class date{
+	int t_date;
+	int month;
+	int year;
+	string month_str;
+	public:
+		date(int all_date)
+		{
+//			Set Month
+			month=all_date/1000000;
+			
+//			Set Date
+			int i=all_date;
+			int j=(i/10000);
+			int z=j/100;
+			z=z*100;
+			t_date=j-z;
+			
+//			Set Year
+			j=j*10000;
+			year=i - j;
+			
+//			set month as a string
+	switch(month)
+			{
+					case 1:
+						{
+							month_str="Jan";
+							break;
+						}
+					case 2:
+						{
+							month_str="Feb";
+							break;
+						}
+					case 3:
+					{
+						month_str="Mar";
+						break;
+					}
+					case 4:
+					{
+						month_str="Apr";
+						break;
+					}
+					case 5:
+					{
+						month_str="May";
+						break;
+					}
+					case 6:
+					{
+						month_str="Jun";
+						break;
+					}
+					case 7:
+					{
+						month_str="Jul";
+						break;
+					}
+					case 8:
+					{
+						month_str="Aug";
+						break;
+					}
+					case 9:
+					{
+						month_str="Sep";
+						break;
+					}
+					case 10:
+					{
+						month_str="Oct";
+						break;
+					}
+					case 11:
+					{
+						month_str="Nov";
+						break;
+					}
+					case 12:
+					{
+						month_str="Dec";
+						break;
+					}
+					default:
+						{
+						month_str="Note valid";
+						break;	
+						}
+		}
+			
+		}
+		date(int i_month,int i_day,int i_year)
+		{
+			t_date=i_day;
+			month=i_month;
+			year=i_year;
+			
+			switch(month)
+			{
+					case 1:
+						{
+							month_str="Jan";
+							break;
+						}
+					case 2:
+						{
+							month_str="Feb";
+							break;
+						}
+					case 3:
+					{
+						month_str="Mar";
+						break;
+					}
+					case 4:
+					{
+						month_str="Apr";
+						break;
+					}
+					case 5:
+					{
+						month_str="May";
+						break;
+					}
+					case 6:
+					{
+						month_str="Jun";
+						break;
+					}
+					case 7:
+					{
+						month_str="Jul";
+						break;
+					}
+					case 8:
+					{
+						month_str="Aug";
+						break;
+					}
+					case 9:
+					{
+						month_str="Sep";
+						break;
+					}
+					case 10:
+					{
+						month_str="Oct";
+						break;
+					}
+					case 11:
+					{
+						month_str="Nov";
+						break;
+					}
+					case 12:
+					{
+						month_str="Dec";
+						break;
+					}
+					default:
+						{
+						month_str="Note valid";
+						break;	
+						}
+		}				
+		}
+		show()
+		{
+			int input;
+			cout<<"Enter value Acoding you want to output"<<endl;
+			cout<<"Press '1' for DDMMYYYY "<<endl;
+			cout<<"Press '2' for MM/DD/YY "<<endl;
+			cout<<"Press '3' for May14,2001 "<<endl;
+			cin>>input;
+			switch (input)
+			{
+				case 1:
+					{
+						cout<<t_date<<month<<year<<endl;
+						break;
+					}
+				case 2:
+					{
+						cout<<month<<"/"<<t_date<<"/"<<year<<endl;
+						break;
+					}
+				case 3:
+					{
+						cout<<month_str<<t_date<<","<<year<<endl;
+						break;
+					}
+					default:
+						{
+							cout<<"Error: data format is wrong"<<endl;
+						}
+}
+			cout<<"--------------------------------"<<endl;
+		}
+};
+main()
+{
+date d1(12132004),d2(1,12,2004),d3(2,12,2012);
+d1.show();
+d2.show();
+d3.show();
+// Output:
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//1
+//13122004
+//--------------------------------
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//2
+//1/12/2004
+//--------------------------------
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//3
+//Feb12,2012
+//--------------------------------
+}
+(6) //Create a class say coordinate class with variables x and y.
+//Overload the == and != operators to perform required operations on the object of that class. 
+//Overload the * so that it performs multiplication operation with object of coordinate class either in the form int * obj or obj * int.
+//Also define the -- operator to decrement values when applied to an object. 
+//Also write appropriate conversion function to convert coordinate object in to int.
+#include<iostream>
+using namespace std;
+
+
+class coodinate{
+	int x;
+	int y;
+	public:
+		set(int t_x,int t_y)
+		{
+			x=t_x;
+			y=t_y;
+		}
+		show()
+		{
+			cout<<"X:"<<x<<endl;
+			cout<<"Y:"<<y<<endl;
+			cout<<"--------------"<<endl;
+		}
+		bool operator ==(coodinate c1)
+		{
+			if(this->x==c1.x && this->y==c1.y)
+			{
+				return 1;
+			}
+			else 
+			{
+				return 0;
+			}
+			
+		}
+			bool operator !=(coodinate c1)
+		{
+			if(this->x!=c1.x && this->y!=c1.y)
+			{
+				return 1;
+			}
+			else 
+			{
+				return 0;
+			}
+			
+		}
+		operator *(int num)
+		{
+			this->x=(this->x*num);
+			this->y=(this->y*num);
+		}
+		operator --()
+		{
+			x=(this->x-1);
+			y=(this->y-1);
+		}
+		friend convert_int(coodinate c1,int &t_x,int &t_y);
+			
+};
+convert_int(coodinate c1,int &t_x,int &t_y)
+{
+	t_x=c1.x;
+	t_y=c1.y;
+}
+main()
+{
+	coodinate c1,c2;
+	c1.set(1,2);
+	c2.set(1,3);
+	c1.show();
+	c2.show();
+	if(c1==c2)
+	cout<<"Same"<<endl;
+	else
+	cout<<"Note same"<<endl;
+	if(c1!=c2)
+	cout<<"note Same"<<endl;
+	else
+	cout<<"same"<<endl;
+	c1*2;
+	c1.show();
+	--c1;
+	c1.show();
+	int x,y;
+	convert_int(c1,x,y);
+	cout<<"cod x:"<<x<<endl;
+	cout<<"cod y:"<<y;
+
+
+
+
+}
+//	output
+//X:1
+//Y:2
+//--------------
+//X:1
+//Y:3
+//--------------
+//Note same
+//same
+//X:2
+//Y:4
+//--------------
+//X:1
+//Y:3
+//--------------
+//cod x:1
+//cod y:3
+//----------
+
+
+//(7) Design a class date which sets date of object to dd, mm ,yyyy format .
+//Overload + and _ operators for the class date to add given no of days to a particular date 
+//object as d1 = d1 + 10 and d1 = 10 + d1 where
+//d1 is set using a constructor to some valid date and to find difference between two given date.
+//Display the original dates , after addition and the difference.
+//The date objects created should be validated in the constructor itself.
+using namespace std;
+
+
+class Date{
+	int date;
+	int month;
+	int year;
+	public:
+		Date(int t_date,int t_month,int t_year){
+			if(t_month>12)
+			{
+				cout<<"Note valid month"<<endl;
+				month=0;
+			}
+			else
+			{
+				month=t_month;
+			}
+			if(t_date>31)
+			{
+				cout<<"Note valid date"<<endl;
+				date=0;
+			}			
+			else
+			{
+				date=t_date;
+			}
+			year=t_year;
+		}
+	 Date operator +(int size) {
+        Date newDate = *this;  
+
+
+
+
+        int newDay = newDate.date + size;
+
+
+
+
+        if (newDay < 31) {
+            newDate.date = newDay;
+        } else {        	
+            newDate.month = newDate.month + 1;
+            newDate.date = newDay - 31;
+            if(newDate.month>12)
+            {
+            	newDate.year=newDate.year+1;
+            	newDate.month=1;
+			}
+        }
+		cout<<"Total "<<size<<" day is add..."<<endl;
+        return newDate;
+    }
+    show(){
+    	cout<<"Date:"<<date<<endl;
+    	cout<<"Month:"<<month<<endl;
+    	cout<<"Year:"<<year<<endl;
+	}
+
+
+
+
+		
+};
+main()
+{
+	Date d1(10,8,2002);
+	d1.show();
+	cout<<"Enter day"<<endl;
+	int size;
+	cin>>size;
+	d1= d1+size;
+	d1.show();
+}
+//output
+//Date:31
+//Month:12
+//Year:2003
+//Total 10 day is add...
+//Date:10
+//Month:1
+//Year:2004
+
+
+//(8) Define a singly linked list class, 
+//which is a made up objects of node class.
+//Provide addition,
+//deletion of nodes,
+//with operator overloading.
+
+
+#include<iostream>
+using namespace std;
+
+
+class Link_list{
+	private:
+	struct node() {
+		int id;
+		int data;
+		int *node next;
+	};
+	head = new *node;
+	cuurent - new *node;
+	public:
+		add(int data)
+		{
+			n1 = new *node; 
+			cout<<"ID:"<<endl;
+			cin>
+		}
+	
+	
+};
+
+
+
+
+main()
+{
+	
+}
+//(9) Define a matrix class, which allows addition, subtraction, multiplication with another matrix
+//, multiplication with a scalar value, and inverse of a matrix( Use operator overloading).
+// Use dynamic constructors and destructors for allocation and de allocation of memory.
+// Overload function call operator () to allow the more common form of double array subscripting. 
+//Instead of saying x[row][column] for an array of objects, overload the function call operator to allow the alternate form x(row, column)
+
+
+
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+
+
+
+using namespace std;
+
+
+
+
+class Matrix {
+private:
+    int rows;
+    int cols;
+    double** data;
+
+
+
+
+public:
+    // Constructors
+    Matrix(int rows, int cols) : rows(rows), cols(cols) {
+        data = new double*[rows];
+        for (int i = 0; i < rows; ++i) {
+            data[i] = new double[cols];
+            for (int j = 0; j < cols; ++j) {
+                data[i][j] = 0.0;
+            }
+        }
+    }
+
+
+
+
+    // Destructor
+    ~Matrix() {
+        for (int i = 0; i < rows; ++i) {
+            delete[] data[i];
+        }
+        delete[] data;
+    }
+
+
+
+
+    // Overload () for element access
+    double& operator()(int row, int col) {
+        return data[row][col];
+    }
+
+
+
+
+    // Overload + for matrix addition
+    Matrix operator+(const Matrix& other) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] + other.data[i][j];
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload - for matrix subtraction
+    Matrix operator-(const Matrix& other) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] - other.data[i][j];
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload * for matrix multiplication
+    Matrix operator*(const Matrix& other) const {
+        Matrix result(rows, other.cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < other.cols; ++j) {
+                for (int k = 0; k < cols; ++k) {
+                    result(i, j) += data[i][k] * other.data[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload * for scalar multiplication
+    Matrix operator*(double scalar) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] * scalar;
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Function to calculate the inverse of a matrix
+    Matrix inverse() const {
+        // Assume the matrix is 2x2 for simplicity
+        double det = data[0][0] * data[1][1] - data[0][1] * data[1][0];
+        if (std::abs(det) < 1e-10) {
+            cerr << "Matrix is singular, cannot calculate inverse." << endl;
+        }
+
+
+
+
+        Matrix result(2, 2);
+        result(0, 0) = data[1][1] / det;
+        result(0, 1) = -data[0][1] / det;
+        result(1, 0) = -data[1][0] / det;
+        result(1, 1) = data[0][0] / det;
+
+
+
+
+        return result;
+    }
+
+
+
+
+    // Display the matrix
+    void display() const {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                cout << setw(8) << data[i][j];
+            }
+            cout << endl;
+        }
+    }
+};
+
+
+
+
+int main() {
+    Matrix A(2, 2);
+    A(0, 0) = 1;
+    A(0, 1) = 2;
+    A(1, 0) = 3;
+    A(1, 1) = 4;
+
+
+
+
+    Matrix B(2, 2);
+    B(0, 0) = 5;
+    B(0, 1) = 6;
+    B(1, 0) = 7;
+    B(1, 1) = 8;
+
+
+
+
+    Matrix C = A + B;
+    Matrix D = A - B;
+    Matrix E = A * B;
+    Matrix F = A * 2.0;
+    Matrix G = A.inverse();
+
+
+
+
+    cout << "Matrix A:" << endl;
+    A.display();
+
+
+
+
+    cout << "Matrix B:" << endl;
+    B.display();
+
+
+
+
+    cout << "A + B:" << endl;
+    C.display();
+
+
+
+
+    cout << "A - B:" << endl;
+    D.display();
+
+
+
+
+    cout << "A * B:" << endl;
+    E.display();
+
+
+
+
+    cout << "A * 2.0:" << endl;
+    F.display();
+
+
+
+
+    cout << "Inverse of A:" << endl;
+    G.display();
+
+
+
+
+    return 0;
+}
+//Output
+//Matrix A:
+//       1       2
+//       3       4
+//Matrix B:
+//       5       6
+//       7       8
+//A + B:
+//       6       8
+//      10      12
+//A - B:
+//      -4      -4
+//      -4      -4
+//A * B:
+//      19      22
+//      43      50
+//A * 2.0:
+//       2       4
+//       6       8
+//Inverse of A:
+//      -2       1
+//     1.5    -0.5
+
+
+
+
+
+
+
+
+
+
+
+
+//(10) Define a class of your own choice. Overload all the operators supported by C++, which can be overloaded for your class.
+// List all the operators which can not be overloaded for your class, with proper justification. 
+
+
+
+
+#include <iostream>
+#include <string>
+
+
+
+
+using namespace std;
+
+
+
+
+class Person {
+private:
+    string name;
+    int age;
+
+
+
+
+public:
+    // Constructor
+    Person(const string& name, int age) : name(name), age(age) {}
+
+
+
+
+    bool operator==(const Person& other) const {
+    // Check if the names and ages are equal
+    return (name == other.name) && (age == other.age);
+}
+
+
+
+
+
+
+
+
+    // Overload < for less than comparison based on age
+    bool operator<(const Person& other) const {
+        return age < other.age;
+    }
+
+
+
+
+    // Display person information
+    void display() const {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+
+
+
+int main() {
+    Person person1("Alice", 25);
+    Person person2("Bob", 30);
+    Person person3("Alice", 25);
+
+
+
+
+    // Equality comparison
+    cout << "Comparison using ==:" << endl;
+    cout << "person1 == person2: " << boolalpha << (person1 == person2) << endl;
+    cout << "person1 == person3: " << boolalpha << (person1 == person3) << endl;
+
+
+
+
+    // Less than comparison
+    cout << "\nComparison using <:" << endl;
+    cout << "person1 < person2: " << boolalpha << (person1 < person2) << endl;
+    cout << "person2 < person1: " << boolalpha << (person2 < person1) << endl;
+
+
+
+
+    return 0;
+}
+//OUTPUT
+//Comparison using ==:
+//person1 == person2: false
+//person1 == person3: true
+//
+//Comparison using <:
+//person1 < person2: true
+//person2 < person1: false
+
+
+
+
+
+
+—----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Assignment 2
+
+
+
+
+(1) Overload all the four arithmetic operators to operate on a vector class and also the overload the * operator to multiply scalar values to the vector class. Overload the >> operator to input a vector and the << operator to display the vector in the form (10,20,.....). Also overload the [] operator to access the individual member of the vector. Use Dynamic memory allocation to achieve the solution. Write appropriate constructor and destructure for the class.
+
+
+
+
+#include <iostream>
+
+
+
+
+using namespace std;
+
+
+
+
+class Distance {
+private:
+    int feet;
+    int inches;
+
+
+
+
+public:
+    // Constructor
+    Distance(int feet, int inches) : feet(feet), inches(inches) {}
+
+
+
+
+    // Convert Distance class to total inches (int)
+    operator int() const {
+        return feet * 12 + inches;
+    }
+
+
+
+
+    // Convert int to Distance class
+    static Distance intToDistance(int totalInches) {
+        int feet = totalInches / 12;
+        int remainingInches = totalInches % 12;
+        return Distance(feet, remainingInches);
+    }
+
+
+
+
+    // Display the distance
+    void display() const {
+        cout << "Feet: " << feet << ", Inches: " << inches << endl;
+    }
+};
+
+
+
+
+class Length {
+private:
+    int meters;
+    int centimeters;
+
+
+
+
+public:
+    // Constructor
+    Length(int meters, int centimeters) : meters(meters), centimeters(centimeters) {}
+
+
+
+
+    // Convert Distance class to Length class
+    static Length distanceToLength(const Distance& distance) {
+        // 1 foot = 0.3048 meters
+        // 1 inch = 0.0254 meters
+        double totalMeters = distance.operator int() * 0.0254;
+        int meters = static_cast<int>(totalMeters);
+        int centimeters = static_cast<int>((totalMeters - meters) * 100);
+        return Length(meters, centimeters);
+    }
+
+
+
+
+    // Display the length
+    void display() const {
+        cout << "Meters: " << meters << ", Centimeters: " << centimeters << endl;
+    }
+};
+
+
+
+
+int main() {
+    // Test the Distance class
+    Distance d1(3, 6);
+//    Distance d2 = 48;  // Using conversion constructor
+
+
+
+
+    cout << "Distance 1:" << endl;
+    d1.display();
+
+
+
+
+//    cout << "\nDistance 2:" << endl;
+//    d2.display();
+
+
+
+
+    // Test conversion from Distance to int
+    int totalInches = static_cast<int>(d1);
+    cout << "\nTotal inches of Distance 1: " << totalInches << endl;
+
+
+
+
+    // Test conversion from int to Distance
+    Distance d3 = Distance::intToDistance(72);
+    cout << "\nDistance 3 (converted from 72 inches):" << endl;
+    d3.display();
+
+
+
+
+    // Test conversion from Distance to Length
+    Length length = Length::distanceToLength(d1);
+    cout << "\nLength (converted from Distance 1):" << endl;
+    length.display();
+
+
+
+
+    return 0;
+}
+//OTPUT
+//Distance 1:
+//Feet: 3, Inches: 6
+//
+//Total inches of Distance 1: 42
+//
+//
+//Length (converted from Dist
+//Distance 3 (converted from 72 inches):
+//Feet: 6, Inches: 0ance 1):
+//Meters: 1, Centimeters: 6
+
+
+
+
+ (2) Write a menu driven program that can perform the following functions on strings. (Use overloaded operators where possible). (Do not use predefined string class ) 1. Compare two strings for equality (== operator) 2. Check whether first string is smaller than the second (<= operator) 3. Copy the string to another 4. Extract a character from the string (Overload []) 5. Reverse the string 6. Concatenate two strings (+ operator)
+#include<iostream>
+using namespace std;
+class mystring{
+	string str;
+	public:
+		set()
+		{
+			cout<<"Enter string :"<<endl;
+			cin>>str;
+		}
+		show()
+		{
+			cout<<"Your string is :"<<str<<endl;
+		}
+		bool operator ==(mystring &x1)
+		{
+			int size1=sizeof(this->str)/sizeof(this->str[0]);
+			int size2=sizeof(x1.str)/sizeof(x1.str[0]);
+			if(size1==size2)
+			{
+				for(int i=0;i<size2;i++)
+				{
+					if(this->str[i]!=x1.str[i])
+					{
+					return 0;
+					}
+				}	
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		} 
+		void operator <=(mystring &x1)
+		{
+			int size1,size2,i;
+			while(x1.str[i]!= '\0')
+			{
+				size2=size2+1;
+				i=i+1;
+			}
+			i=0;
+			while(this->str[i]!= '\0')
+			{
+				size1=size1+1;
+				i=i+1;
+			}
+			if(size1<size2)
+			{
+				cout<<"First string is smaller than second string"<<endl;
+				
+			}
+			else
+			{
+				cout<<"second string is small"<<endl;
+			}
+		}	
+	friend copy(mystring &s1,mystring &s2);
+	char operator [](int index)
+	{
+		if(index<str.size() && index>=0)
+		{
+			return str[index];
+		}
+		else
+		{
+			cout<<"Invalid string size"<<endl;
+			return '\0';
+		}		
+	}
+	string reverse(){
+		  int s = str.size();
+    for (int i = 0; i < s / 2; i++) {
+        char temp = str[i];
+        str[i] = str[s - i - 1];
+        str[s - i - 1] = temp;
+    }
+    return str;
+	}		
+	string operator +(mystring s1)
+	{
+		string temp;
+		int i;
+		for( i=0;i<str.size();i++)
+		{
+		temp=temp+str[i];	
+		}
+		temp=temp+" ";
+		int size2=s1.str.size();
+		for( i=0;i<size2;i++)
+		{
+		temp=temp+s1.str[i];	
+		}	
+		return temp;
+	}
+};
+		copy(mystring &s1,mystring &s2){
+				int size=sizeof(s2.str)/sizeof(s2.str[0]);
+				for(int i=0;i<size;i++)
+				{
+					s1.str[i]=s2.str[i];
+				}			
+			}
+
+
+
+
+			
+int main()
+{
+	mystring s1,s2;
+	bool b1;
+	s1.set();
+	s1.show();
+	s2.set();
+	s2.show();
+	
+	//Same or not check
+	if(s1==s2){
+		cout<<"String are same"<<endl;
+	}
+	else
+	{
+		cout<<"String are not same"<<endl;
+	}
+
+
+
+
+// check less then first string
+	s1<=s2;
+
+
+
+
+//copy one string to another string
+	copy(s1,s2);
+	s1.show();
+	
+//index number
+cout<<s2[1];
+
+
+
+
+//reverse the string
+cout<<s1.reverse();
+
+
+
+
+//Concatenate two string
+cout<<s1+s2;
+	return 0;
+}
+//Enter string :
+//yusuf
+//Your string is :yusuf
+//Enter string :
+//akash
+//Your string is :akash
+//String are not same
+//second string is small
+//Your string is :akash
+//k hsaka hsaka akash
+(3) Create two classes Salary and Deductions to store the value of total salary and total deductions. Salary has date members as MED for medical allowance, HRA for house rent, BAS for basic salary , DA for dearness allowance. Deductions had data member IT for income tax, and PF for provident fund. Write appropriate constructors to set values into the data members, overload >> operator to display the salary as well as deductions and the - operator to subtract object of deductions from salary and display the net salary. Use friend function to carry out the subtraction.
+#include <iostream>
+using namespace std;
+
+
+
+
+class Deductions; 
+
+
+
+
+class Salary {
+private:
+    float MED;
+    float HRA;
+    float BAS;
+    float DA;
+    float Total_salary;
+
+
+
+
+public:
+ 
+    Salary(float med, float hra, float bas, float da) : MED(med), HRA(hra), BAS(bas), DA(da) {
+        Total_salary = MED + HRA + BAS + DA;
+    }
+
+
+
+
+   
+    friend ostream& operator<<(ostream& out, const Salary& salary);
+
+
+
+
+  
+    friend float operator-(const Salary& salary, const Deductions& deductions);
+};
+
+
+
+
+class Deductions {
+private:
+    float IT;
+    float PF;
+    float Total_deductions;
+
+
+
+
+public:
+
+
+
+
+    Deductions(float it, float pf) : IT(it), PF(pf) {
+        Total_deductions = IT + PF;
+    }
+
+
+
+
+   
+    friend ostream& operator<<(ostream& out, const Deductions& deductions);
+
+
+
+
+ 
+    friend float operator-(const Salary& salary, const Deductions& deductions);
+};
+
+
+
+
+
+
+
+
+ostream& operator<<(ostream& out, const Salary& salary) {
+    out << "Medical Allowance: " << salary.MED << endl;
+    out << "House Rent Allowance: " << salary.HRA << endl;
+    out << "Basic Salary: " << salary.BAS << endl;
+    out << "Dearness Allowance: " << salary.DA << endl;
+    out << "Total Salary: " << salary.Total_salary << endl;
+    return out;
+}
+
+
+
+
+
+
+
+
+ostream& operator<<(ostream& out, const Deductions& deductions) {
+    out << "Income Tax: " << deductions.IT << endl;
+    out << "Provident Fund: " << deductions.PF << endl;
+    out << "Total Deductions: " << deductions.Total_deductions << endl;
+    return out;
+}
+
+
+
+
+
+
+
+
+float operator-(const Salary& salary, const Deductions& deductions) {
+    return salary.Total_salary - deductions.Total_deductions;
+}
+
+
+
+
+int main() {
+   
+    Salary salary(1000, 2000, 3000, 4000);
+    Deductions deductions(500, 600);
+
+
+
+
+  
+    cout << "Initial Salary:" << endl;
+    cout << salary << endl;
+
+
+
+
+    cout << "\nInitial Deductions:" << endl;
+    cout << deductions << endl;
+
+
+
+
+
+
+
+
+    float netSalary = salary - deductions;
+    cout << "\nNet Salary: " << netSalary << endl;
+
+
+
+
+    return 0;
+}
+
+
+
+
+(4) Define a class coord, which has x and y coordinates as its data members . Overload the -- operator for the coord class. Create both its prefix and postfix forms. Overload the + operator for the coord class so that it is both a binary operator and unary operator. When used as unary operator, have the + make any negative coordinate value positive
+#include <iostream>
+using namespace std;
+
+
+
+
+class coord {
+private:
+    int x;
+    int y;
+
+
+
+
+public:
+    // Constructor
+    coord(int t_x, int t_y) : x(t_x), y(t_y) {}
+
+
+
+
+    // Prefix decrement operator (--coord)
+    coord operator--() {
+        --x;
+        --y;
+        return *this;
+    }
+
+
+
+
+    // Postfix decrement operator (coord--)
+    coord operator--(int) {
+        coord temp(*this);
+        --x;
+        --y;
+        return temp;
+    }
+
+
+
+
+    // Unary plus operator (+coord)
+    coord operator+() {
+        // Make any negative coordinate value positive
+        if (x < 0) x = -x;
+        if (y < 0) y = -y;
+        return *this;
+    }
+
+
+
+
+    // Binary plus operator (coord + coord)
+    coord operator+(const coord& other) {
+        return coord(x + other.x, y + other.y);
+    }
+
+
+
+
+    // Display coordinates
+    void display() {
+        cout << "X: " << x << ", Y: " << y << endl;
+    }
+};
+
+
+
+
+int main() {
+    coord point1(5, -3);
+    coord point2(-2, 7);
+
+
+
+
+    cout << "Original Coordinates:" << endl;
+    point1.display();
+    point2.display();
+
+
+
+
+    // Unary plus operator (+coord)
+    cout << "\nApplying Unary Plus Operator (+coord):" << endl;
+    (+point1).display();
+    (+point2).display();
+
+
+
+
+    // Binary plus operator (coord + coord)
+    cout << "\nApplying Binary Plus Operator (coord + coord):" << endl;
+    (point1 + point2).display();
+
+
+
+
+    // Prefix decrement operator (--coord)
+    cout << "\nApplying Prefix Decrement Operator (--coord):" << endl;
+    (--point1).display();
+
+
+
+
+    // Postfix decrement operator (coord--)
+    cout << "\nApplying Postfix Decrement Operator (coord--):" << endl;
+    (point2--).display();
+
+
+
+
+    return 0;
+}
+
+
+//(5) Create a date class with the following capabilities: 
+//(a)Output the date in multiple formats such as 
+//DDMMYYYY 
+//MM/DD/YY 
+//May14,2001 
+//(b)Use overloaded constructors to create Date objects in itialized with date format in section(a)
+//(c) Overload operators for testing equality of two dates and for comparing dates to determine if one date is prior to,or after,anotherdate.
+//(d) Create a member function nextday to increment the day by day. 
+//The date object function should always remain in consistant state.Be sure to test following cases:(i)Incrementing
+//to next month(ii) Incrementing into the next year.
+#include<iostream>
+using namespace std;
+
+
+
+
+
+
+class date{
+	int t_date;
+	int month;
+	int year;
+	string month_str;
+	public:
+		date(int all_date)
+		{
+//			Set Month
+			month=all_date/1000000;
+			
+//			Set Date
+			int i=all_date;
+			int j=(i/10000);
+			int z=j/100;
+			z=z*100;
+			t_date=j-z;
+			
+//			Set Year
+			j=j*10000;
+			year=i - j;
+			
+//			set month as a string
+	switch(month)
+			{
+					case 1:
+						{
+							month_str="Jan";
+							break;
+						}
+					case 2:
+						{
+							month_str="Feb";
+							break;
+						}
+					case 3:
+					{
+						month_str="Mar";
+						break;
+					}
+					case 4:
+					{
+						month_str="Apr";
+						break;
+					}
+					case 5:
+					{
+						month_str="May";
+						break;
+					}
+					case 6:
+					{
+						month_str="Jun";
+						break;
+					}
+					case 7:
+					{
+						month_str="Jul";
+						break;
+					}
+					case 8:
+					{
+						month_str="Aug";
+						break;
+					}
+					case 9:
+					{
+						month_str="Sep";
+						break;
+					}
+					case 10:
+					{
+						month_str="Oct";
+						break;
+					}
+					case 11:
+					{
+						month_str="Nov";
+						break;
+					}
+					case 12:
+					{
+						month_str="Dec";
+						break;
+					}
+					default:
+						{
+						month_str="Note valid";
+						break;	
+						}
+		}
+			
+		}
+		date(int i_month,int i_day,int i_year)
+		{
+			t_date=i_day;
+			month=i_month;
+			year=i_year;
+			
+			switch(month)
+			{
+					case 1:
+						{
+							month_str="Jan";
+							break;
+						}
+					case 2:
+						{
+							month_str="Feb";
+							break;
+						}
+					case 3:
+					{
+						month_str="Mar";
+						break;
+					}
+					case 4:
+					{
+						month_str="Apr";
+						break;
+					}
+					case 5:
+					{
+						month_str="May";
+						break;
+					}
+					case 6:
+					{
+						month_str="Jun";
+						break;
+					}
+					case 7:
+					{
+						month_str="Jul";
+						break;
+					}
+					case 8:
+					{
+						month_str="Aug";
+						break;
+					}
+					case 9:
+					{
+						month_str="Sep";
+						break;
+					}
+					case 10:
+					{
+						month_str="Oct";
+						break;
+					}
+					case 11:
+					{
+						month_str="Nov";
+						break;
+					}
+					case 12:
+					{
+						month_str="Dec";
+						break;
+					}
+					default:
+						{
+						month_str="Note valid";
+						break;	
+						}
+		}				
+		}
+		show()
+		{
+			int input;
+			cout<<"Enter value Acoding you want to output"<<endl;
+			cout<<"Press '1' for DDMMYYYY "<<endl;
+			cout<<"Press '2' for MM/DD/YY "<<endl;
+			cout<<"Press '3' for May14,2001 "<<endl;
+			cin>>input;
+			switch (input)
+			{
+				case 1:
+					{
+						cout<<t_date<<month<<year<<endl;
+						break;
+					}
+				case 2:
+					{
+						cout<<month<<"/"<<t_date<<"/"<<year<<endl;
+						break;
+					}
+				case 3:
+					{
+						cout<<month_str<<t_date<<","<<year<<endl;
+						break;
+					}
+					default:
+						{
+							cout<<"Error: data format is wrong"<<endl;
+						}
+}
+			cout<<"--------------------------------"<<endl;
+		}
+};
+main()
+{
+date d1(12132004),d2(1,12,2004),d3(2,12,2012);
+d1.show();
+d2.show();
+d3.show();
+// Output:
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//1
+//13122004
+//--------------------------------
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//2
+//1/12/2004
+//--------------------------------
+//Enter value Acoding you want to output
+//Press '1' for DDMMYYYY
+//Press '2' for MM/DD/YY
+//Press '3' for May14,2001
+//3
+//Feb12,2012
+//--------------------------------
+}
+(6) //Create a class say coordinate class with variables x and y.
+//Overload the == and != operators to perform required operations on the object of that class. 
+//Overload the * so that it performs multiplication operation with object of coordinate class either in the form int * obj or obj * int.
+//Also define the -- operator to decrement values when applied to an object. 
+//Also write appropriate conversion function to convert coordinate object in to int.
+#include<iostream>
+using namespace std;
+
+
+class coodinate{
+	int x;
+	int y;
+	public:
+		set(int t_x,int t_y)
+		{
+			x=t_x;
+			y=t_y;
+		}
+		show()
+		{
+			cout<<"X:"<<x<<endl;
+			cout<<"Y:"<<y<<endl;
+			cout<<"--------------"<<endl;
+		}
+		bool operator ==(coodinate c1)
+		{
+			if(this->x==c1.x && this->y==c1.y)
+			{
+				return 1;
+			}
+			else 
+			{
+				return 0;
+			}
+			
+		}
+			bool operator !=(coodinate c1)
+		{
+			if(this->x!=c1.x && this->y!=c1.y)
+			{
+				return 1;
+			}
+			else 
+			{
+				return 0;
+			}
+			
+		}
+		operator *(int num)
+		{
+			this->x=(this->x*num);
+			this->y=(this->y*num);
+		}
+		operator --()
+		{
+			x=(this->x-1);
+			y=(this->y-1);
+		}
+		friend convert_int(coodinate c1,int &t_x,int &t_y);
+			
+};
+convert_int(coodinate c1,int &t_x,int &t_y)
+{
+	t_x=c1.x;
+	t_y=c1.y;
+}
+main()
+{
+	coodinate c1,c2;
+	c1.set(1,2);
+	c2.set(1,3);
+	c1.show();
+	c2.show();
+	if(c1==c2)
+	cout<<"Same"<<endl;
+	else
+	cout<<"Note same"<<endl;
+	if(c1!=c2)
+	cout<<"note Same"<<endl;
+	else
+	cout<<"same"<<endl;
+	c1*2;
+	c1.show();
+	--c1;
+	c1.show();
+	int x,y;
+	convert_int(c1,x,y);
+	cout<<"cod x:"<<x<<endl;
+	cout<<"cod y:"<<y;
+
+
+
+
+}
+//	output
+//X:1
+//Y:2
+//--------------
+//X:1
+//Y:3
+//--------------
+//Note same
+//same
+//X:2
+//Y:4
+//--------------
+//X:1
+//Y:3
+//--------------
+//cod x:1
+//cod y:3
+//----------
+
+
+//(7) Design a class date which sets date of object to dd, mm ,yyyy format .
+//Overload + and _ operators for the class date to add given no of days to a particular date 
+//object as d1 = d1 + 10 and d1 = 10 + d1 where
+//d1 is set using a constructor to some valid date and to find difference between two given date.
+//Display the original dates , after addition and the difference.
+//The date objects created should be validated in the constructor itself.
+using namespace std;
+
+
+class Date{
+	int date;
+	int month;
+	int year;
+	public:
+		Date(int t_date,int t_month,int t_year){
+			if(t_month>12)
+			{
+				cout<<"Note valid month"<<endl;
+				month=0;
+			}
+			else
+			{
+				month=t_month;
+			}
+			if(t_date>31)
+			{
+				cout<<"Note valid date"<<endl;
+				date=0;
+			}			
+			else
+			{
+				date=t_date;
+			}
+			year=t_year;
+		}
+	 Date operator +(int size) {
+        Date newDate = *this;  
+
+
+
+
+        int newDay = newDate.date + size;
+
+
+
+
+        if (newDay < 31) {
+            newDate.date = newDay;
+        } else {        	
+            newDate.month = newDate.month + 1;
+            newDate.date = newDay - 31;
+            if(newDate.month>12)
+            {
+            	newDate.year=newDate.year+1;
+            	newDate.month=1;
+			}
+        }
+		cout<<"Total "<<size<<" day is add..."<<endl;
+        return newDate;
+    }
+    show(){
+    	cout<<"Date:"<<date<<endl;
+    	cout<<"Month:"<<month<<endl;
+    	cout<<"Year:"<<year<<endl;
+	}
+
+
+
+
+		
+};
+main()
+{
+	Date d1(10,8,2002);
+	d1.show();
+	cout<<"Enter day"<<endl;
+	int size;
+	cin>>size;
+	d1= d1+size;
+	d1.show();
+}
+//output
+//Date:31
+//Month:12
+//Year:2003
+//Total 10 day is add...
+//Date:10
+//Month:1
+//Year:2004
+
+
+//(8) Define a singly linked list class, 
+//which is a made up objects of node class.
+//Provide addition,
+//deletion of nodes,
+//with operator overloading.
+
+
+#include<iostream>
+using namespace std;
+
+
+class Link_list{
+	private:
+	struct node() {
+		int id;
+		int data;
+		int *node next;
+	};
+	head = new *node;
+	cuurent - new *node;
+	public:
+		add(int data)
+		{
+			n1 = new *node; 
+			cout<<"ID:"<<endl;
+			cin>
+		}
+	
+	
+};
+
+
+
+
+main()
+{
+	
+}
+//(9) Define a matrix class, which allows addition, subtraction, multiplication with another matrix
+//, multiplication with a scalar value, and inverse of a matrix( Use operator overloading).
+// Use dynamic constructors and destructors for allocation and de allocation of memory.
+// Overload function call operator () to allow the more common form of double array subscripting. 
+//Instead of saying x[row][column] for an array of objects, overload the function call operator to allow the alternate form x(row, column)
+
+
+
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+
+
+
+using namespace std;
+
+
+
+
+class Matrix {
+private:
+    int rows;
+    int cols;
+    double** data;
+
+
+
+
+public:
+    // Constructors
+    Matrix(int rows, int cols) : rows(rows), cols(cols) {
+        data = new double*[rows];
+        for (int i = 0; i < rows; ++i) {
+            data[i] = new double[cols];
+            for (int j = 0; j < cols; ++j) {
+                data[i][j] = 0.0;
+            }
+        }
+    }
+
+
+
+
+    // Destructor
+    ~Matrix() {
+        for (int i = 0; i < rows; ++i) {
+            delete[] data[i];
+        }
+        delete[] data;
+    }
+
+
+
+
+    // Overload () for element access
+    double& operator()(int row, int col) {
+        return data[row][col];
+    }
+
+
+
+
+    // Overload + for matrix addition
+    Matrix operator+(const Matrix& other) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] + other.data[i][j];
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload - for matrix subtraction
+    Matrix operator-(const Matrix& other) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] - other.data[i][j];
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload * for matrix multiplication
+    Matrix operator*(const Matrix& other) const {
+        Matrix result(rows, other.cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < other.cols; ++j) {
+                for (int k = 0; k < cols; ++k) {
+                    result(i, j) += data[i][k] * other.data[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Overload * for scalar multiplication
+    Matrix operator*(double scalar) const {
+        Matrix result(rows, cols);
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                result(i, j) = data[i][j] * scalar;
+            }
+        }
+        return result;
+    }
+
+
+
+
+    // Function to calculate the inverse of a matrix
+    Matrix inverse() const {
+        // Assume the matrix is 2x2 for simplicity
+        double det = data[0][0] * data[1][1] - data[0][1] * data[1][0];
+        if (std::abs(det) < 1e-10) {
+            cerr << "Matrix is singular, cannot calculate inverse." << endl;
+        }
+
+
+
+
+        Matrix result(2, 2);
+        result(0, 0) = data[1][1] / det;
+        result(0, 1) = -data[0][1] / det;
+        result(1, 0) = -data[1][0] / det;
+        result(1, 1) = data[0][0] / det;
+
+
+
+
+        return result;
+    }
+
+
+
+
+    // Display the matrix
+    void display() const {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                cout << setw(8) << data[i][j];
+            }
+            cout << endl;
+        }
+    }
+};
+
+
+
+
+int main() {
+    Matrix A(2, 2);
+    A(0, 0) = 1;
+    A(0, 1) = 2;
+    A(1, 0) = 3;
+    A(1, 1) = 4;
+
+
+
+
+    Matrix B(2, 2);
+    B(0, 0) = 5;
+    B(0, 1) = 6;
+    B(1, 0) = 7;
+    B(1, 1) = 8;
+
+
+
+
+    Matrix C = A + B;
+    Matrix D = A - B;
+    Matrix E = A * B;
+    Matrix F = A * 2.0;
+    Matrix G = A.inverse();
+
+
+
+
+    cout << "Matrix A:" << endl;
+    A.display();
+
+
+
+
+    cout << "Matrix B:" << endl;
+    B.display();
+
+
+
+
+    cout << "A + B:" << endl;
+    C.display();
+
+
+
+
+    cout << "A - B:" << endl;
+    D.display();
+
+
+
+
+    cout << "A * B:" << endl;
+    E.display();
+
+
+
+
+    cout << "A * 2.0:" << endl;
+    F.display();
+
+
+
+
+    cout << "Inverse of A:" << endl;
+    G.display();
+
+
+
+
+    return 0;
+}
+//Output
+//Matrix A:
+//       1       2
+//       3       4
+//Matrix B:
+//       5       6
+//       7       8
+//A + B:
+//       6       8
+//      10      12
+//A - B:
+//      -4      -4
+//      -4      -4
+//A * B:
+//      19      22
+//      43      50
+//A * 2.0:
+//       2       4
+//       6       8
+//Inverse of A:
+//      -2       1
+//     1.5    -0.5
+
+
+
+
+
+
+
+
+
+
+
+
+//(10) Define a class of your own choice. Overload all the operators supported by C++, which can be overloaded for your class.
+// List all the operators which can not be overloaded for your class, with proper justification. 
+
+
+
+
+#include <iostream>
+#include <string>
+
+
+
+
+using namespace std;
+
+
+
+
+class Person {
+private:
+    string name;
+    int age;
+
+
+
+
+public:
+    // Constructor
+    Person(const string& name, int age) : name(name), age(age) {}
+
+
+
+
+    bool operator==(const Person& other) const {
+    // Check if the names and ages are equal
+    return (name == other.name) && (age == other.age);
+}
+
+
+
+
+
+
+
+
+    // Overload < for less than comparison based on age
+    bool operator<(const Person& other) const {
+        return age < other.age;
+    }
+
+
+
+
+    // Display person information
+    void display() const {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+
+
+
+int main() {
+    Person person1("Alice", 25);
+    Person person2("Bob", 30);
+    Person person3("Alice", 25);
+
+
+
+
+    // Equality comparison
+    cout << "Comparison using ==:" << endl;
+    cout << "person1 == person2: " << boolalpha << (person1 == person2) << endl;
+    cout << "person1 == person3: " << boolalpha << (person1 == person3) << endl;
+
+
+
+
+    // Less than comparison
+    cout << "\nComparison using <:" << endl;
+    cout << "person1 < person2: " << boolalpha << (person1 < person2) << endl;
+    cout << "person2 < person1: " << boolalpha << (person2 < person1) << endl;
+
+
+
+
+    return 0;
+}
+//OUTPUT
+//Comparison using ==:
+//person1 == person2: false
+//person1 == person3: true
+//
+//Comparison using <:
+//person1 < person2: true
+//person2 < person1: false
+—------------------------------------------------------------------------------------------------------------------------
+—------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Assignment 3
+
+
+
+
+
+
+—------------------------------------------------------------------------------------------------------------------------
+/*(1) Define a class Employees. Also define classes of MaleEmp and FemaleEmp inheriting from that.
+ Define classes Officers, Clercks and peons again inheriting from Employee class.
+ Define an array which contains 10 different types of employees.
+ Define a function ReadDetails() in all above classes.
+ All array elements should be able to be accessed in the same routine irrespective of their type.
+*/
+
+#include <iostream>
+#include <string>
+
+class Employees {
+public:
+    std::string name;
+    int age;
+
+    virtual void ReadDetails() {
+        std::cout << "Enter employee name: ";
+        std::cin >> name;
+        std::cout << "Enter employee age: ";
+        std::cin >> age;
+    }
+    
+     virtual void DisplayDetails() const {
+        std::cout << "Employee: " << name << ", Age: " << age << std::endl;
+    }
+};
+
+class MaleEmp : public Employees {
+public:
+    void ReadDetails() override {
+        Employees::ReadDetails();
+        // Add additional details for Male Employee if needed
+    }
+};
+
+class FemaleEmp : public Employees {
+public:
+    void ReadDetails() override {
+        Employees::ReadDetails();
+        // Add additional details for Female Employee if needed
+    }
+};
+
+class Officers : public Employees {
+public:
+    void ReadDetails() override {
+        Employees::ReadDetails();
+        // Add additional details for Officers if needed
+    }
+};
+
+class Clerks : public Employees {
+public:
+    void ReadDetails() override {
+        Employees::ReadDetails();
+        // Add additional details for Clerks if needed
+    }
+};
+
+class Peons : public Employees {
+public:
+    void ReadDetails() override {
+        Employees::ReadDetails();
+        // Add additional details for Peons if needed
+    }
+};
+
+int main() {
+    Employees* employeeArray[10]; // Array of employee pointers
+
+    // Fill the array with different types of employees
+    employeeArray[0] = new MaleEmp();
+    employeeArray[1] = new FemaleEmp();
+    employeeArray[2] = new Officers();
+    employeeArray[3] = new Clerks();
+    employeeArray[4] = new Peons();
+    // Add more employees to the array as needed...
+
+    // Read details for all employees using the common function
+    for (int i = 0; i < 5; i++) {
+        employeeArray[i]->ReadDetails();
+    }
+    
+    // Display details for all employees
+    for (int i = 0; i < 5; i++) {
+        employeeArray[i]->DisplayDetails();
+    }
+
+    // Delete the dynamically allocated objects to prevent memory leaks
+    for (int i = 0; i < 5; i++) {
+        delete employeeArray[i];
+    }
+
+    return 0;
+}
+
+
+//output:-
+//Enter employee name: jannat
+//Enter employee age: 23
+//Enter employee name: sneh
+//Enter employee age: 12
+//Enter employee name: ashish
+//Enter employee age: 22
+//Enter employee name: drashti
+//Enter employee age: 33
+//Enter employee name: jinal
+//Enter employee age: 22
+//Employee: jannat, Age: 23
+//Employee: sneh, Age: 12
+//Employee: ashish, Age: 22
+//Employee: drashti, Age: 33
+//Employee: jinal, Age: 22
+
+
+/*(2)
+ An educational institution wishes to maintain a database of its employees.
+ The database is divided into a number of classed whose hierarchical relationships are shown in fig-1.
+ The figure also shows the minimum information required for each class.
+ Specify all the classes and define function to create the database and retrieve individual information as and when required.
+ Write parameterized constructor for each class in the hierarchy.
+
+*/
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class staff{
+	int code;
+	string name;
+	string joining;
+	public:
+		staff(int _code, const string& _name, const string& _joining): code(_code), name(_name), joining(_joining) {
+		}
+        
+         virtual void GetInfo() const {
+        cout << "Code: " << code << "\nName: " << name << "\nJoining Date: " << joining <<endl;
+    }
+	
+};
+
+class teacher:public staff{
+	string subject;
+	string publication;
+	public:
+		teacher(int _code, const string& _name, const string& _joining,
+            const string& _subject, const string& _publication)
+        : staff(_code, _name, _joining), subject(_subject), publication(_publication) {
+		}
+
+	    void GetInfo() const {
+	        staff::GetInfo();
+	        cout << "Subject: " << subject << "\nPublication: " << publication << endl;
+	    }
+};
+
+class typist:public staff{
+	string speed;
+	public:
+		 typist(int _code, const string& _name, const string& _joining, const string& _speed)
+		 :staff(_code, _name, _joining), speed(_speed) {
+		 }
+
+	    void GetInfo() const {
+	        staff::GetInfo();
+	        cout << "Typing Speed: " << speed << endl;
+	    }
+};
+
+class officer:public staff{
+	string grade;
+	public:
+		 officer(int _code, const string& _name, const string& _joining, const string& _grade)
+        : staff(_code, _name, _joining), grade(_grade) {}
+
+	    void GetInfo() const {
+	        staff::GetInfo();
+	        cout << "Grade: " << grade << endl;
+	    }
+};
+
+class regular_typist: public typist{
+	float salary;
+	public:
+		regular_typist(int _code, const string& _name, const ::string& _joining,  const string& _speed, float _salary)
+        : typist(_code, _name, _joining, _speed), salary(_salary) {}
+
+	    void GetInfo() const {
+	        typist::GetInfo();
+	        cout << "Salary: " << salary <<endl;
+	    }
+};
+
+class casual_typist: public typist{
+	float daily_wages;
+	public:
+		 casual_typist(int _code, const string& _name, const string& _joining,
+                 const string& _speed, float _dailywages)
+        : typist(_code, _name, _joining, _speed), daily_wages(_dailywages) {}
+
+    void GetInfo() const {
+        typist::GetInfo();
+        cout << "Daily Wages: " << daily_wages << endl;
+    }
+};
+
+int main() {
+
+    teacher t1(103, "Jannat", "2022-01-01", "oocp", "Published in XYZ Journal");
+    regular_typist rt1(92, "Ashish", "2022-02-01", "60 WPM", 2500.00);
+
+    // Display individual information
+    t1.GetInfo();
+    cout << "\n";
+    rt1.GetInfo();
+
+    return 0;
+}
+
+/*output:-
+Code: 103
+Name: Jannat
+Joining Date: 2022-01-01
+Subject: oocp
+Publication: Published in XYZ Journal
+
+Code: 92
+Name: Ashish
+Joining Date: 2022-02-01
+Typing Speed: 60 WPM
+Salary: 2500*/
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Education {
+public:
+    string general_qualification;
+    string professional_qualification;
+
+    Education(const string& genqual, const string& profqual)
+        : general_qualification(genqual), professional_qualification(profqual) {}
+};
+
+
+class staff{
+	int code;
+	string name;
+	string joining;
+	public:
+		staff(int _code, const string& _name, const string& _joining): code(_code), name(_name), joining(_joining) {
+		}
+        
+         virtual void GetInfo() const {
+        cout << "Code: " << code << "\nName: " << name << "\nJoining Date: " << joining <<endl;
+    }
+	
+};
+
+class teacher:public staff, public Education{
+	string subject;
+	string publication;
+	public:
+		teacher(int _code, const string& _name, const string& _joining,
+            const string& _subject, const string& _publication, const string& genqual, const string& profqual)
+        : staff(_code, _name, _joining),  Education(genqual, profqual), subject(_subject), publication(_publication) {
+		}
+
+	    void GetInfo() const {
+        staff::GetInfo();
+        cout << "Subject: " << subject << "\nPublication: " << publication << "\nHighest Qualification: " 
+		     << general_qualification  << "\nProfessional Qualification: " << professional_qualification << endl;
+    }
+};
+
+class typist:public staff{
+	string speed;
+	public:
+		 typist(int _code, const string& _name, const string& _joining, const string& _speed)
+		 :staff(_code, _name, _joining), speed(_speed) {
+		 }
+
+	    void GetInfo() const {
+	        staff::GetInfo();
+	        cout << "Typing Speed: " << speed << endl;
+	    }
+};
+
+class officer:public staff, public Education{
+	string grade;
+	public:
+		 officer(int _code, const string& _name, const string& _joining,
+            const string& _grade, const string& genqual, const string& profqual)
+        : staff(_code, _name, _joining), Education(genqual, profqual), grade(_grade) {}
+
+	    void GetInfo() const {
+        	staff::GetInfo();
+        	cout << "Grade: " << grade << "\nHighest Qualification: " << general_qualification
+                  << "\nProfessional Qualification: " << professional_qualification << endl;
+    	}
+};
+
+class regular_typist: public typist{
+	float salary;
+	public:
+		regular_typist(int _code, const string& _name, const ::string& _joining,  const string& _speed, float _salary)
+        : typist(_code, _name, _joining, _speed), salary(_salary) {}
+
+	    void GetInfo() const {
+	        typist::GetInfo();
+	        cout << "Salary: " << salary <<endl;
+	    }
+};
+
+class casual_typist: public typist{
+	float daily_wages;
+	public:
+		 casual_typist(int _code, const string& _name, const string& _joining,
+                 const string& _speed, float _dailywages)
+        : typist(_code, _name, _joining, _speed), daily_wages(_dailywages) {}
+
+    void GetInfo() const {
+        typist::GetInfo();
+        cout << "Daily Wages: " << daily_wages << endl;
+    }
+};
+
+int main() {
+
+	teacher t1(103, "Jannat", "2022-01-01", "oocp", "Published in XYZ Journal", "PhD", "Certified Educator");
+    officer o1(111, "Jane Foster", "2022-02-01", "Grade A", "Masters", "Certified Professional");
+
+    // Display individual information
+    t1.GetInfo();
+    cout << "\n";
+    o1.GetInfo();
+
+    return 0;
+}
+
+//output:-
+//Code: 103
+//Name: Jannat
+//Joining Date: 2022-01-01
+//Subject: oocp
+//Publication: Published in XYZ Journal
+//Highest Qualification: PhD
+//Professional Qualification: Certified Educator
+//
+//Code: 111
+//Name: Jane Foster
+//Joining Date: 2022-02-01
+//Grade: Grade A
+//Highest Qualification: Masters
+//Professional Qualification: Certified Professional
+
+
+*(4)Consider a class network of fig . The class master derives information from both account and
+ admin classes which in turn derived derive information from the class person.
+ Define all the four classes and write a program to create ,
+ update and display the information contained in master objects. 
+
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+
+class person{
+	int p_code;
+	string p_name;
+	public:
+		 person(int _code, const string& _name)
+        : p_code(_code), p_name(_name) {} 
+};
+
+class admin: public person{
+	public:string experiance;
+	public:
+		admin(int _code, const string& _name, const string& _experience)
+        : person(_code, _name), experiance(_experience) {}
+	
+};
+
+class account: public person{
+	public:float pay, deposit;
+	public:
+		 account(int _code, const string& _name, float _pay, float _deposit)
+        : person(_code, _name), pay(_pay), deposit(_deposit) {}
+};
+
+class master: public admin, public account{
+	string m_name;
+	int m_code;
+	string exp;
+	float payment;
+	public:
+		 master(int _adminCode, const string& _adminName, const string& _adminExperience,
+           int _accountCode, const string& _accountName, float _pay, float _deposit,
+           const string& _masterName, int _masterCode, const string& _masterExperience,
+           float _masterPayment)
+        : admin(_adminCode, _adminName, _adminExperience),
+          account(_accountCode, _accountName, _pay, _deposit),
+          m_name(_masterName), m_code(_masterCode),
+          exp(_masterExperience), payment(_masterPayment) {}
+          
+          void DisplayInfo() const {
+            cout << "Master Information:\n"
+                  << "Master Code: " << m_code << "\nMaster Name: " << m_name << "\nMaster Experience: " << exp
+                  << "\nMaster Payment: " << payment << "\n\nAdmin Information:\n"
+                  << "\nAdmin Experience: " << experiance << "\n\n"
+                  << "Account Information:\n"
+                  << "\nAccount Pay: " << pay << "\nAccount Deposit: " << deposit
+                  << std::endl;
+    }
+};
+
+int main(){
+	master m1(101, "jannat", "5 year", 201, "Jannat_2002", 5000.0, 10000.0, "MasterName", 301, "MasterExperience", 8000.0);
+
+    // Display information
+    m1.DisplayInfo();
+
+    return 0;
+}
+//
+//output:-
+//Master Information:
+//Master Code: 301
+//Master Name: MasterName
+//Master Experience: MasterExperience
+//Master Payment: 8000
+//
+//Admin Information:
+//
+//Admin Experience: 5 year
+//
+//Account Information:
+//
+//Account Pay: 5000
+//Account Deposit: 10000
+
+
+/* (5)   In Exercise 4, the classes teacher , Officer and typist are derived from the class staff.
+ As we know, we can use container classes in place of inheritance in some situations.
+ Redesign the program of Ex-8.21 such that the classes teacher,
+ officer and typist contain the objects of staff.
+ Write parameterized constructor for each class in the hierarchy.
+
+*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Staff {
+public:
+    int code;
+    string name;
+    string joining;
+
+    Staff(int _code, const string& _name, const string& _joining)
+        : code(_code), name(_name), joining(_joining) {}
+
+    void GetInfo() const {
+        cout << "Code: " << code << "\nName: " << name << "\nJoining Date: " << joining << endl;
+    }
+};
+
+class Education {
+public:
+    string qualificationGeneral;
+    string qualificationProfessional;
+
+    Education(const string& _qualificationGeneral, const string& _qualificationProfessional)
+        : qualificationGeneral(_qualificationGeneral), qualificationProfessional(_qualificationProfessional) {}
+};
+
+class Teacher {
+public:
+    Staff staff;
+    Education education;
+    string subject;
+    string publication;
+
+    Teacher(int _code, const string& _name, const string& _joining,
+            const string& _qualificationGeneral, const string& _qualificationProfessional,
+            const string& _subject, const string& _publication)
+        : staff(_code, _name, _joining),
+          education(_qualificationGeneral, _qualificationProfessional),
+          subject(_subject), publication(_publication) {}
+
+    void GetInfo() const {
+        staff.GetInfo();
+        cout << "Subject: " << subject << "\nPublication: " << publication << "\n"
+        << "Qualification (General): " << education.qualificationGeneral << "\n"
+        << "Qualification (Professional): " << education.qualificationProfessional <<endl;
+    }
+};
+
+class Typist {
+public:
+    Staff staff;
+    string speed;
+
+    Typist(int _code, const string& _name, const string& _joining,
+           const string& _speed)
+        : staff(_code, _name, _joining), speed(_speed) {}
+
+    void GetInfo() const {
+        staff.GetInfo();
+        cout << "Typing Speed: " << speed << endl;
+    }
+};
+
+class Officer {
+public:
+    Staff staff;
+    Education education;
+    string grade;
+
+    Officer(int _code, const string& _name, const string& _joining,
+            const string& _qualificationGeneral, const string& _qualificationProfessional,
+            const string& _grade)
+        : staff(_code, _name, _joining),
+          education(_qualificationGeneral, _qualificationProfessional),
+          grade(_grade) {}
+
+    void GetInfo() const {
+        staff.GetInfo();
+        cout << "Grade: " << grade << "\n"
+                  << "Qualification (General): " << education.qualificationGeneral << "\n"
+                  << "Qualification (Professional): " << education.qualificationProfessional << endl;
+    }
+};
+
+int main() {
+    // Example usage
+    Teacher teacher(1, "John Doe", "2022-01-01", "Masters", "Ph.D.", "Math", "Published in XYZ Journal");
+    Typist typist(2, "Jane Smith", "2022-02-01", "60 WPM");
+    Officer officer(3, "Alice Johnson", "2022-03-01", "Bachelor's", "MBA", "Grade A");
+
+    // Display individual information
+    teacher.GetInfo();
+    cout << "\n";
+    typist.GetInfo();
+    cout << "\n";
+    officer.GetInfo();
+
+    return 0;
+}
+
+//output:-
+//Code: 1
+//Name: John Doe
+//Joining Date: 2022-01-01
+//Subject: Math
+//Publication: Published in XYZ Journal
+//Qualification (General): Masters
+//Qualification (Professional): Ph.D.
+//
+//Code: 2
+//Name: Jane Smith
+//Joining Date: 2022-02-01
+//Typing Speed: 60 WPM
+//
+//Code: 3
+//Name: Alice Johnson
+//Joining Date: 2022-03-01
+//Grade: Grade A
+//Qualification (General): Bachelor's
+//Qualification (Professional): MBA
+
+
+/*(1)   Create a base class called shape. Use this class to store two double type values that could be used to
+ compute the area of figures. Derive three specific classes calledtriangle, rectangle and circle from the base shape.
+ Add to the base class, a member function get_data( ) to initialize base class data members
+ and another member function display_area( ) to compute and display the area of figures.
+Make display_area( ) as a virtual function and redefine this function in derived classes to suit their requirements.
+ Using these three classes design a
+ program that will accept dimensions of a triangle or rectangle interactively and store it in one array .
+ After having read all the input display the area of all the figures whose area has been read in the program.
+ Remember the two values given as input will be treated
+ as lengths of two sides in the case of rectangle and as base and height in case of triangle.
+ In case of circle only one value
+ should be accepted which will be taken as the radius and the default value of the next parameter should be 0. 
+
+polymorphism assignment
+*/
+
+#include<iostream>
+#include<cmath>
+#include<string>
+using namespace std;
+
+class shape{
+	public:double dimension1, dimension2;
+	public:
+		shape(): dimension1(0.0), dimension2(0.0){
+		}
+		
+		void get_data(){
+			cout<<"enter dimension1: ";
+			cin>>dimension1;
+			cout<<"enter dimension2: ";
+			cin>>dimension2;
+		}
+		
+		//member function to display the area
+		void display_area(const string& shape_type)const{
+			cout << shape_type << " Area: " << calculate_area() <<endl;
+		}
+		
+		virtual double calculate_area()const{
+			return 0.0;
+		}
+};
+
+class triangle: public shape{
+	public:
+		double calculate_area() const {
+        	return 0.5 * dimension1 * dimension2;
+    	}
+};
+
+class rectangle: public shape{
+	double calculate_area() const {
+        return dimension1 * dimension2;
+    }	
+};
+
+class circle: public shape{
+	double calculate_area() const {
+        return 3.14 * dimension1 * dimension1;
+    }
+    
+    void get_data() {
+        cout << "Enter radius: ";
+        cin >> dimension1;
+        dimension2 = 0.0; // Set the default value for the second dimension to 0 for the circle
+    }
+};
+
+int main(){
+	int maxshapes = 3;
+	shape* shapes[maxshapes];
+     // Accept dimensions of shapes interactively and store in the array
+    for (int i = 0; i < maxshapes; ++i) {
+        char choice;
+        std::cout << "Enter shape (T for Triangle, R for Rectangle, C for Circle): ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 'T':
+                shapes[i] = new triangle();
+                break;
+            case 'R':
+                shapes[i] = new rectangle();
+                break;
+            case 'C':
+                shapes[i] = new circle();
+                break;
+            default:
+                std::cout << "Invalid choice. Try again.\n";
+                --i; // Decrement i to repeat the current iteration
+                continue;
+        }
+
+        shapes[i]->get_data(); // Input dimensions
+    }
+     // Display the area of all the figures whose area has been read
+    for (int i = 0; i < maxshapes; ++i) {
+        shapes[i]->display_area((i == 0) ? "Triangle" : (i == 1) ? "Rectangle" : "Circle");
+    }
+    
+    for (int i = 0; i < maxshapes; ++i) {
+        delete shapes[i];
+    }
+    
+    return 0;
+
+}
+//
+//output:-
+//Enter shape (T for Triangle, R for Rectangle, C for Circle): T
+//enter dimension1: 2
+//enter dimension2: 3
+//Enter shape (T for Triangle, R for Rectangle, C for Circle): C
+//enter dimension1: 2
+//enter dimension2: 3
+//Enter shape (T for Triangle, R for Rectangle, C for Circle): R
+//enter dimension1: 2
+//enter dimension2: 3
+//Triangle Area: 3
+//Rectangle Area: 12.56
+//Circle Area: 6
+
+
+/*(2) Consider a class student from which the classes test and sports are derived. The class student has
+ the name and rollno of the student.
+ The class test has the marks of the internal test and the sports class has the marks of the sports test.
+ The class student contains a virtual function display() which  are implemented in the classes test and sports.
+ Write a program which will take relative information and display it using pointer of the base class.
+polymorphism assignment
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+
+class student{
+	string name;
+	int rollno;
+	public:
+		student(const string& _name, int _rollno) : name(_name), rollno(_rollno) {}
+	
+	virtual void display() const {
+        cout << "Name: " << name << "\nRoll No: " << rollno << endl;
+    }
+};
+
+class test:public student{
+	int testmarks;
+	public:
+		test(const string& _name, int _rollno, int _testmarks)
+        : student(_name, _rollno), testmarks(_testmarks) {}
+        
+        void display() const {
+        	student::display();
+        	cout << "Test Marks: " << testmarks << endl;
+    }
+};
+
+class sports:public student{
+	int sportsmarks;
+	public:
+		sports(const string& _name, int _rollno, int _sportsmarks)
+        : student(_name, _rollno), sportsmarks(_sportsmarks) {}
+	
+	void display() const {
+        student::display();
+        cout << "Sports Marks: " << sportsmarks << endl;
+    }
+};
+
+int main(){
+	student* stuptr;
+	
+	test t1("jannat", 103, 89);
+	sports s1("ashish", 92, 88);
+	
+	 // Use pointers to the base class to display information
+    stuptr = &t1;
+    stuptr->display();
+
+ 	cout<<endl;
+ 	
+    stuptr = &s1;
+    stuptr->display();
+    
+    return 0;
+
+}
+//
+//output:-
+//Name: jannat
+//Roll No: 103
+//Test Marks: 89
+//
+//Name: ashish
+//Roll No: 92
+//Sports Marks: 88
+
+
+/*
+(3)ABC publishing company markets both book and audio cassette versions of  its work. Create a class called
+ publication that stores the title( a string) and price( type float) of a publication.
+ From this class derive two classes : book ,
+ which adds a page count (type int); and tape, which adds playing time in minutes (type float).
+ Write a main program that reads both book and tape information in one  array.
+ When the user has finished entering data for all books and tapes,
+ displays the resulting data for all the books and tapes entered.
+ Also count no of book and cassette entries in the array using runtime identification feature of C++.
+polymorphism assignment
+*/
+
+#include<iostream>
+#include<string>
+#include<typeinfo>
+using namespace std;
+
+class publication{
+	string title;
+	float price;
+	public:
+		publication(const string& _title, float _price)
+        : title(_title), price(_price) {}
+        
+        void getData() {
+	        cout << "Enter title: ";
+	        cin.ignore();
+	        getline(cin, title);
+	
+	        cout << "Enter price: ";
+	        cin >> price;
+    	}
+    	
+    	void displayData() const {
+        	cout << "Title: " << title << "\nPrice: " << price <<endl;
+    	}
+};
+
+class book:public publication{
+	int page_count;
+	public:
+		book(const string& _title, float _price, int _pageCount)
+        : publication(_title, _price), page_count(_pageCount) {}
+        
+        void getData() {
+        publication::getData();
+        	cout << "Enter page count: ";
+        	cin >> page_count;
+    	}
+    	
+    	void displayData() const {
+        	publication::displayData();
+        	cout << "Page Count: " << page_count <<endl;
+    	}
+};
+
+class tape:public publication{
+	float playing_time;
+	public:
+		tape(const string& _title, float _price, float _playingTime)
+        :publication(_title, _price), playing_time(_playingTime) {}
+        
+        void getData() {
+        	publication::getData();
+        	cout << "Enter playing time (minutes): ";
+        	cin >> playing_time;
+    	}
+    	
+    	void displayData() const {
+        	publication::displayData();
+        	cout << "Playing Time: " << playing_time << " minutes" << std::endl;
+    	}
+    	
+};
+
+int main(){
+	int maxpublication = 5;
+	publication* publications[maxpublication];
+	int bookcount = 0, tapecount = 0;
+	char choice;
+	
+	do{
+		cout<<"enter data for book(B) or tape(T): ";
+		cin>>choice;
+		
+		 if (choice == 'B' || choice == 'b') {
+            publications[bookcount] = new book("", 0.0, 0);
+            publications[bookcount]->getData();
+            ++bookcount;
+        } else if (choice == 'T' || choice == 't') {
+            publications[tapecount] = new tape("", 0.0, 0.0);
+            publications[tapecount]->getData();
+            ++tapecount;
+        } else {
+            cout << "Invalid choice. Try again.\n";
+        }
+        
+        cout << "Do you want to enter data for another publication? (Y/N): ";
+        cin >> choice;
+	}while (choice == 'Y' || choice == 'y');
+	
+	cout << "\nDisplaying data for all publications:\n";
+    for (int i = 0; i < bookcount + tapecount; ++i) {
+        publications[i]->displayData();
+        cout << "\n";
+    }
+    
+    int bookEntries = 0, tapeEntries = 0;
+    
+    for (int i = 0; i < bookcount + tapecount; ++i) {
+        if (typeid(*publications[i]) == typeid(book)) {
+            ++bookEntries;
+        } else if (typeid(*publications[i]) == typeid(tape)) {
+            ++tapeEntries;
+        }
+    }
+    
+    cout << "\nNumber of Book entries: " << bookEntries << "\n";
+    cout << "Number of Tape entries: " << tapeEntries << "\n";
+
+    for (int i = 0; i < bookcount + tapecount; ++i) {
+        delete publications[i];
+    }
+    
+    return 0;
+}
+//
+//output:-
+//enter data for book(B) or tape(T): b
+//Enter title: E. Balagurusamy
+//Enter price: 500
+//Do you want to enter data for another publication? (Y/N): n
+//
+//Displaying data for all publications:
+//Title: E. Balagurusamy
+//Price: 500
+//
+//
+//Number of Book entries: 0
+//Number of Tape entries: 0
+
+—------------------------------------------------------------------------------------------------------------------------
+(1)  Write a generic function that will sort a character string, integer and float value. Create a menu with appropriate options and accept the values from the user. 
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+
+    return 0;
+}
+
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+
+
+—------------------------------------------------------------------------------------------------------------------------
+(2)  Implement binary search as a generic function (function template). The function should take arguments as array name, the size and the element to be searched.
+ #include <iostream>
+
+template <typename T>
+int binarySearch(const T arr[], int size, const T& key) {
+    int low = 0;
+    int high = size - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == key) {
+            return mid; // Element found, return its index
+        } else if (arr[mid] < key) {
+            low = mid + 1; // Search in the right half
+        } else {
+            high = mid - 1; // Search in the left half
+        }
+    }
+
+    return -1; // Element not found
+}
+
+int main() {
+    // Example with an array of integers
+    int intArr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sizeIntArr = sizeof(intArr) / sizeof(int);
+
+    int keyInt = 7;
+    int resultInt = binarySearch(intArr, sizeIntArr, keyInt);
+
+    if (resultInt != -1) {
+        std::cout << "Integer " << keyInt << " found at index " << resultInt << std::endl;
+    } else {
+        std::cout << "Integer " << keyInt << " not found in the array" << std::endl;
+    }
+
+    // Example with an array of doubles
+    double doubleArr[] = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.0};
+    int sizeDoubleArr = sizeof(doubleArr) / sizeof(double);
+
+    double keyDouble = 5.5;
+    int resultDouble = binarySearch(doubleArr, sizeDoubleArr, keyDouble);
+
+    if (resultDouble != -1) {
+        std::cout << "Double " << keyDouble << " found at index " << resultDouble << std::endl;
+    } else {
+        std::cout << "Double " << keyDouble << " not found in the array" << std::endl;
+    }
+
+    return 0;
+}
+----------
+output
+Integer 7 found at index 6
+Double 5.5 found at index 4
+
+
+—------------------------------------------------------------------------------------------------------------------------
+(3)  Write a template function called find(). This function searches an array for an object. It returns  either the index of the matching object (if one is found) or -1 if no match is found.
+ #include <iostream>
+
+template <typename T>
+int find(const T arr[], int size, const T& key) {
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] == key) {
+            return i; // Element found, return its index
+        }
+    }
+
+    return -1; // Element not found
+}
+
+int main() {
+    // Example with an array of integers
+    int intArr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int sizeIntArr = sizeof(intArr) / sizeof(int);
+
+    int keyInt = 7;
+    int resultInt = find(intArr, sizeIntArr, keyInt);
+
+    if (resultInt != -1) {
+        std::cout << "Integer " << keyInt << " found at index " << resultInt << std::endl;
+    } else {
+        std::cout << "Integer " << keyInt << " not found in the array" << std::endl;
+    }
+
+    // Example with an array of doubles
+    double doubleArr[] = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.0};
+    int sizeDoubleArr = sizeof(doubleArr) / sizeof(double);
+
+    double keyDouble = 5.5;
+    int resultDouble = find(doubleArr, sizeDoubleArr, keyDouble);
+
+    if (resultDouble != -1) {
+        std::cout << "Double " << keyDouble << " found at index " << resultDouble << std::endl;
+    } else {
+        std::cout << "Double " << keyDouble << " not found in the array" << std::endl;
+    }
+
+    return 0;
+}
+--------------
+output
+Integer 7 found at index 6
+Double 5.5 found at index 4
+—------------------------------------------------------------------------------------------------------------------------
+(4) Write a object oriented program to implement a generic Stack. Incorporate all the possible operation on Stack in the program. Rework stack class so that stack overflows are handled as exceptions.
+ #include <iostream>
+#include <stdexcept>
+
+template <typename T>
+class Stack {
+private:
+    static const int MAX_SIZE = 100; // Maximum size of the stack
+    T data[MAX_SIZE];
+    int topIndex;
+
+public:
+    Stack() : topIndex(-1) {}
+
+    void push(const T& value) {
+        if (topIndex == MAX_SIZE - 1) {
+            throw std::overflow_error("Stack overflow");
+        }
+        data[++topIndex] = value;
+    }
+
+    void pop() {
+        if (isEmpty()) {
+            throw std::underflow_error("Stack underflow");
+        }
+        --topIndex;
+    }
+
+    T top() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Stack is empty");
+        }
+        return data[topIndex];
+    }
+
+    bool isEmpty() const {
+        return topIndex == -1;
+    }
+};
+
+int main() {
+    try {
+        Stack<int> intStack;
+
+        // Pushing values onto the stack
+        intStack.push(10);
+        intStack.push(20);
+        intStack.push(30);
+
+        // Displaying the top element
+        std::cout << "Top element: " << intStack.top() << std::endl;
+
+        // Popping an element
+        intStack.pop();
+
+        // Displaying the top element after popping
+        std::cout << "Top element after pop: " << intStack.top() << std::endl;
+
+        // Popping remaining elements
+        intStack.pop();
+        intStack.pop();
+
+        // Attempting to pop from an empty stack
+        intStack.pop(); // This should throw an exception
+
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+-------------------
+output
+Top element: 30
+Top element after pop: 20
+Exception: Stack underflow
+
+—------------------------------------------------------------------------------------------------------------------------
+(5) Write a object oriented program to implement a generic Queue. Incorporate all the possible operation on Queue in the program.
+ #include <iostream>
+#include <stdexcept>
+
+template <typename T>
+class Queue {
+private:
+    static const int MAX_SIZE = 100; // Maximum size of the queue
+    T data[MAX_SIZE];
+    int frontIndex;
+    int rearIndex;
+
+public:
+    Queue() : frontIndex(-1), rearIndex(-1) {}
+
+    void enqueue(const T& value) {
+        if (rearIndex == MAX_SIZE - 1) {
+            throw std::overflow_error("Queue overflow");
+        }
+
+        if (isEmpty()) {
+            frontIndex = 0;
+        }
+
+        data[++rearIndex] = value;
+    }
+
+    void dequeue() {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue underflow");
+        }
+
+        if (frontIndex == rearIndex) {
+            frontIndex = -1;
+            rearIndex = -1;
+        } else {
+            ++frontIndex;
+        }
+    }
+
+    T front() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue is empty");
+        }
+        return data[frontIndex];
+    }
+
+    T rear() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue is empty");
+        }
+        return data[rearIndex];
+    }
+
+    bool isEmpty() const {
+        return frontIndex == -1;
+    }
+};
+
+int main() {
+    try {
+        Queue<int> intQueue;
+
+        // Enqueuing values
+        intQueue.enqueue(10);
+        intQueue.enqueue(20);
+        intQueue.enqueue(30);
+
+        // Displaying front and rear elements
+        std::cout << "Front element: " << intQueue.front() << std::endl;
+        std::cout << "Rear element: " << intQueue.rear() << std::endl;
+
+        // Dequeuing an element
+        intQueue.dequeue();
+
+        // Displaying front and rear elements after dequeue
+        std::cout << "Front element after dequeue: " << intQueue.front() << std::endl;
+        std::cout << "Rear element after dequeue: " << intQueue.rear() << std::endl;
+
+        // Dequeuing remaining elements
+        intQueue.dequeue();
+        intQueue.dequeue();
+
+        // Attempting to dequeue from an empty queue
+        intQueue.dequeue(); // This should throw an exception
+
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+---------------------
+output
+Front element: 10
+Rear element: 30
+Front element after dequeue: 20
+Rear element after dequeue: 30
+Exception: Queue underflow
+
+—------------------------------------------------------------------------------------------------------------------------
+(6) Write a program to create template class called "Safearray". Rules for this class are as follows :
+        	(1) Size is equal to 100
+        	(2) Index from 0 to size -1
+        	(3) If array is sought outside bound the program aborts
+        	(4) Function safeput() is used to assign value to an array element.
+        	(5) Function safeget() is used to return the array element.
+  Make necessary provisions so the program terminates gracefully when unsafe action is attempted.
+ #include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+—------------------------------------------------------------------------------------------------------------------------
+(7)  Define a class Integer containing an int variable and also two more variables, UpperBound and LowerBound. Provide a function Validate to the same class such that when that function is called, it checks to see if the value is between upper and lower bound (Use exception Handling) . Integer class should be defined such that when we write following code,
+                       	Integer Int1(5);
+                       	int int1;
+                        	int1 = Int1;
+    Should work properly; i.e. it casts int to Integer object if validated.
+ #include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+—------------------------------------------------------------------------------------------------------------------------
+(8)  Create and demonstrate a generic linked list class.
+ #include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+—------------------------------------------------------------------------------------------------------------------------
+(9)  Design a stack class so that it can store pairs of different type of objects on the stack. Demonstrate your solution. Rework stack class so that stack overflows are handled as exceptions.
+ #include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+—------------------------------------------------------------------------------------------------------------------------
+(10)  Implement template sort with a non type size.
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+
+—----------------------------------------------------------------------------------------------------------------
+(11)     Use Time class to provide overloaded -. Here the time query is also to be recorded in file. Use C text file to store the query. If a calling function provides expression Time1 – Time2, then operator – function should throw an exception if Time2 is a later time then Time1. Before throwing exception, though, the operator – function should close the file.
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// Function to sort any vector of comparable elements
+template <typename T>
+void sortVector(std::vector<T>& vec) {
+    std::sort(vec.begin(), vec.end());
+}
+
+int main() {
+    // Menu options
+    std::cout << "1. Sort characters\n";
+    std::cout << "2. Sort integers\n";
+    std::cout << "3. Sort floats\n";
+    std::cout << "4. Exit\n";
+
+    int choice;
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            std::vector<char> charVec;
+            char value;
+            std::cout << "Enter characters (enter '#' to stop): ";
+            while (std::cin >> value && value != '#') {
+                charVec.push_back(value);
+            }
+            sortVector(charVec);
+            std::cout << "Sorted characters: ";
+            for (const auto& elem : charVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 2: {
+            std::vector<int> intVec;
+            int value;
+            std::cout << "Enter integers (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                intVec.push_back(value);
+            }
+            sortVector(intVec);
+            std::cout << "Sorted integers: ";
+            for (const auto& elem : intVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 3: {
+            std::vector<float> floatVec;
+            float value;
+            std::cout << "Enter floats (enter -1 to stop): ";
+            while (std::cin >> value && value != -1) {
+                floatVec.push_back(value);
+            }
+            sortVector(floatVec);
+            std::cout << "Sorted floats: ";
+            for (const auto& elem : floatVec) {
+                std::cout << elem << " ";
+            }
+            break;
+        }
+        case 4:
+            std::cout << "Exiting program.\n";
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    return 0;
+}
+
+--------
+output
+1. Sort characters
+2. Sort integers
+3. Sort floats
+4. Exit
+Enter your choice (1-4): 2
+Enter integers (enter -1 to stop): 5 2 8 1 -1
+Sorted integers: 1 2 5 8
+
+
